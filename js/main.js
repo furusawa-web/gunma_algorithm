@@ -602,6 +602,33 @@ window.onload = function () {
                     }
                 }
             });
+            //タイトルラベルの設定
+            var title = new Label(title_text);
+            title.textAlign = title_textAlign;
+            title.color = title_color;
+            title.width = title_width;
+            title.x = title_posX;
+            title.y = title_posY;
+            title.font = title_font;
+            scene.addChild(title);
+
+            //サブタイトルラベルの設定
+            var subTitle = new Label(subTitle_text);
+            subTitle.textAlign = subTitle_textAlign;
+            subTitle.width = subTitle_width;
+            subTitle.x = subTitle_posX;
+            subTitle.y = subTitle_posY;
+            subTitle.font = subTitle_font;
+            scene.addChild(subTitle);
+
+            //許可番号の設定
+            var licLabel = new Label(licLabel_text);
+            licLabel.textAlign = licLabel_textAlign;
+            licLabel.width = licLabel_width;
+            licLabel.x = licLabel_posX;
+            licLabel.y = licLabel_posY;
+            licLabel.font = licLabel_font;
+            scene.addChild(licLabel);
 
             //移動回数表示ラベルの設定
             var label = new Label('移動回数： ' + score + '回');
@@ -721,6 +748,30 @@ window.onload = function () {
                 //実行中フラグをONにする
                 goFlg = true;
             }, false);
+
+
+            //thunderbird.incの設定
+            var creditName = new Label(creditName_text);
+            creditName.textAlign = creditName_textAlign;
+            creditName.width = creditName_width;
+            creditName.x = creditName_posX;
+            creditName.y = creditName_posY;
+            creditName.font = creditName_font;
+            scene.addChild(creditName);
+
+            //お問い合わせの設定
+            var contactLabel = new Label(contactLabel_text);
+            contactLabel.textAlign = contactLabel_textAlign;
+            contactLabel.width = contactLabel_width;
+            contactLabel.x = contactLabel_posX;
+            contactLabel.y = contactLabel_posY;
+            contactLabel.font = contactLabel_font;
+            scene.addChild(contactLabel);
+
+            //お問い合わせボタンがタッチ（クリック）されたときのイベント
+            contactLabel.addEventListener(Event.TOUCH_START, function (e) {
+                window.open('https://www.thunderbird.co.jp/', '_blank');
+            });
 
             return scene;
         };
