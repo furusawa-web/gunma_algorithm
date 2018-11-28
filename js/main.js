@@ -56,7 +56,7 @@ var selectName = [
 //スタートシーンの設定
 var startScene_backgroundColor = '#fcc800';//スタートシーンの背景色
 
-var paddingSpace = winHeight / 30;
+var paddingSpace = winHeight / 40;
 
 //タイトルラベルの設定
 var title_text = 'ぐんまちゃんのぐんま旅';
