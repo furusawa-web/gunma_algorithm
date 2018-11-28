@@ -22,6 +22,9 @@ var comList = new Array(); //フローチャート保存用可変長配列
 var winWidth = window.innerWidth;
 var winHeight = window.innerHeight;
 
+//横長画面への対応
+var winWidth_Use = winWidth;
+if (winWidth > winHeight) winWidth_Use = winHeight * 3 / 5;
 
 
 //ステージ情報-------------------------------
@@ -59,7 +62,7 @@ var paddingSpace = winHeight / 30;
 var title_text = 'ぐんまちゃんのぐんま旅';
 var title_textAlign = 'center';
 var title_color = '#ffffff';
-var title_fontSize = winWidth / title_text.length * 0.8;
+var title_fontSize = Math.min(winWidth_Use, winHeight) / title_text.length * 0.8;
 var title_font = title_fontSize + 'px sans-serif';
 var title_width = title_fontSize * title_text.length;
 var title_posX = winWidth / 2 - title_width / 2;
@@ -146,13 +149,14 @@ var selectStage_fontSize = title_fontSize * 0.5;
 var selectStage_lineSpacing = selectStage_fontSize * 2.5; //行間設定用：（フォントサイズ+行間サイズで指定）
 var selectStage_font = selectStage_fontSize + 'px sans-serif';
 var selectStage_marginTop = licLabel_posY + licLabel_fontSize + paddingSpace;//上の余白設定
+var selectStage_width = winWidth;
 
 
 //ゲームシーンの設定
 var gameScene_BackgroundColor = '#fcc8f0';
 
 //ステージを描画する範囲(以下はステージ描画用領域として、全体の7割のサイズの正方形で確保)
-var stageRangeWidth = Math.min(winWidth, winHeight) * 0.7;
+var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.7;
 var stageRangeHeight = stageRangeWidth;
 
 //パネルの画像サイズ
@@ -163,57 +167,96 @@ var panelImageHeight = 48;
 var stagePanelWidth = stageRangeWidth / stageWidth;
 var stagePanelHeight = stageRangeHeight / stageHeight;
 
-//ステージ領域の描画開始位置(以下は横位置は中心、高さは適当に調整)
+//矢印ボタンの描画サイズ
+var arrowPanelWidth = stageRangeWidth / 5;
+var arrowPanelHeight = stageRangeHeight / 5;
+//矢印ボタンとステージの隙間
+var arrowYpadding = 8;
+
+//ステージ領域の描画開始横位置
 var outStageWidth = (winWidth - stageRangeWidth) / 2;
-var outStageHeight = 50;
+
+//ホームへ戻るボタンの設定
+var backHomeScene_text = 'ホームへ';
+var backHomeScene_textAlign = 'center';
+var backHomeScene_fontSize = title_fontSize * 0.45;
+var backHomeScene_font = backHomeScene_fontSize + 'px sans-serif';
+var backHomeScene_width = stageRangeWidth / 3;
+var backHomeScene_posX = outStageWidth;
+var backHomeScene_posY = licLabel_posY + backHomeScene_fontSize + paddingSpace;
+
+//ステージ選択へボタンの設定
+var backSelectScene_text = 'ステージ選択へ';
+var backSelectScene_textAlign = 'center';
+var backSelectScene_fontSize = backHomeScene_fontSize;
+var backSelectScene_font = backHomeScene_font;
+var backSelectScene_width = backHomeScene_width;
+var backSelectScene_posX = backHomeScene_posX + backHomeScene_width;
+var backSelectScene_posY = backHomeScene_posY;
+
+//リセットボタンの設定
+var backArrow_text = 'やりなおす';
+var backArrow_textAlign = 'center';
+var backArrow_fontSize = backHomeScene_fontSize;
+var backArrow_font = backHomeScene_font;
+var backArrow_width = backHomeScene_width;
+var backArrow_posX = backSelectScene_posX + backSelectScene_width;
+var backArrow_posY = backHomeScene_posY;
 
 //移動回数表示用ラベルの設定
-var moveCountLabel_font = '14px sans-serif';
+var moveCountLabel_fontSize = backHomeScene_fontSize * 1.5;
+var moveCountLabel_font = moveCountLabel_fontSize + 'px sans-serif';
 var moveCountLabel_x = 0;
-var moveCountLabel_y = 0;
+var moveCountLabel_y = backHomeScene_posY + backHomeScene_fontSize + paddingSpace;
+var moveCountLabel_width = winWidth;
+var moveCountLabel_textAlign = 'center';
+
+//ステージ領域の描画開始縦位置
+var outStageHeight = moveCountLabel_y + paddingSpace * 1.5;
 
 //フローチャート表示用ラベルの設定
-var comArrow_font = '20px sans-serif';
-var comArrow_x = winWidth - 25;
-var comArrow_y = 0;
-var comArrow_width = 25;
-
-//やりなおすボタンの設定
-var backArrow_x = 0;
-var backArrow_y = 0;
-
-//実行ボタンの設定
-var goButton_x = 0;
-var goButton_y = 50;
-
-//矢印ボタンとステージの隙間
-var arrowYpadding = 5;
-
+var comArrow_fontSize = title_fontSize * 0.6;
+var comArrow_font = comArrow_fontSize + 'px sans-serif';
+var comArrow_x = outStageWidth + stageRangeWidth + paddingSpace;
+var comArrow_y = outStageHeight;
+var comArrow_width = comArrow_fontSize;
 
 //ゲームオーバーシーンの設定
-var gameoverScene_backgroundColor = '#303030';
+var gameoverScene_backgroundColor = '#fcc8f0';
 
 //クリア画像の設定
 var gameoverImage_width = 267;
 var gameoverImage_height = 48;
-var gameoverImage_x = 40;
-var gameoverImage_y = 112;
+var gameoverImage_x = winWidth / 2 - gameoverImage_width / 2;
+var gameoverImage_y = moveCountLabel_y + paddingSpace * 1.5;
 
-//移動回数表示ラベルの設定
-var resultLabel_text = '回移動した！';
+//結果基準配列
+var resultLabel_index = [20, 10, 0];
+//結果表示ラベルの設定
+var resultLabel_text = ["★☆☆", "★★☆", "★★★"];
 var resultLabel_textAlign = 'center';
-var resultLabel_color = '#fff';
+var resultLabel_color = '#ffd700';
+var resultLabel_width = winWidth;
 var resultLabel_x = 0;
-var resultLabel_y = 60;
-var resultLabel_font = '40px sans-serif';
+var resultLabel_y = gameoverImage_y + gameoverImage_height + paddingSpace * 1.5;
+var resultLabel_fontSize = title_fontSize * 1.2;
+var resultLabel_font = resultLabel_fontSize + 'px sans-serif';
 
-//リトライ用ラベルの設定
-var retryLabel_text = 'もう一度遊ぶ'
-var retryLabel_color = '#fff';
-var retryLabel_x = 0;
-var retryLabel_y = 300;
-var retryLabel_font = '20px sans-serif';
+var resultTips_text = [
+    "グッド！もう少し近道はないかな？がんばろう！<br>",
+    "ナイス！いい感じだね！<br>",
+    "パーフェクト！最短ルートだ！<br>"
+];
+var resultTips_textAlign = 'center';
+var resultTips_color = '#fff';
+var resultTips_width = winWidth;
+var resultTips_x = 0;
+var resultTips_y = resultLabel_fontSize + resultLabel_y + paddingSpace;
+var resultTips_fontSize = title_fontSize * 0.5;
+var resultTips_font = resultTips_fontSize + 'px sans-serif';
 
+var backHomeScene_posY_under = contactLabel_posY - (backHomeScene_fontSize + paddingSpace);
+var backSelectScene_posY_under = backHomeScene_posY_under;
 //-----------------------
 
 
@@ -461,6 +504,7 @@ window.onload = function () {
                 selectStage[index].color = selectStage_color;
                 selectStage[index].y = selectStage_marginTop + selectStage_lineSpacing * index;
                 selectStage[index].font = selectStage_font;
+                selectStage[index].width = selectStage_width;
                 selectStage[index].x = winWidth / 2 - selectStage[index].width / 2;
                 scene.addChild(selectStage[index]);
 
@@ -630,11 +674,80 @@ window.onload = function () {
             licLabel.font = licLabel_font;
             scene.addChild(licLabel);
 
+            //ホームへ戻るの設定
+            var backHomeScene = new Label(backHomeScene_text);
+            backHomeScene.textAlign = backHomeScene_textAlign;
+            backHomeScene.width = backHomeScene_width;
+            backHomeScene.x = backHomeScene_posX;
+            backHomeScene.y = backHomeScene_posY;
+            backHomeScene.font = backHomeScene_font;
+            scene.addChild(backHomeScene);
+            //スタートイメージがタッチ（クリック）されたときのイベント
+            backHomeScene.addEventListener(Event.TOUCH_START, function (e) {
+                //シーン遷移
+                game_.replaceScene(createStartScene());
+            });
+
+
+            //ステージ選択へ戻るの設定
+            var backSelectScene = new Label(backSelectScene_text);
+            backSelectScene.textAlign = backSelectScene_textAlign;
+            backSelectScene.width = backSelectScene_width;
+            backSelectScene.x = backSelectScene_posX;
+            backSelectScene.y = backSelectScene_posY;
+            backSelectScene.font = backSelectScene_font;
+            scene.addChild(backSelectScene);
+            //スタートイメージがタッチ（クリック）されたときのイベント
+            backSelectScene.addEventListener(Event.TOUCH_START, function (e) {
+                //シーン遷移
+                game_.replaceScene(createSelectScene());
+            });
+
+            //リセットボタンの設定
+            //image版
+            //var backArrow = new Sprite(panelImageWidth, panelImageHeight);
+            //backArrow.image = game_.assets['./img/backArrow.png'];
+            //backArrow.x = backArrow_x;
+            //backArrow.y = backArrow_y;
+            //label版
+            var backArrow = new Label(backArrow_text);
+            backArrow.textAlign = backArrow_textAlign;
+            backArrow.width = backArrow_width;
+            backArrow.x = backArrow_posX;
+            backArrow.y = backArrow_posY;
+            backArrow.font = backArrow_font;
+            scene.addChild(backArrow);
+
+            backArrow.addEventListener('touchstart', function () {
+                if (!goFlg) {
+                    //元ステージ情報を読み込み
+                    stageAry = JSON.parse(JSON.stringify(orgStage));
+
+                    //ステージ情報を画面描画に対応
+                    for (var indexY = 0; indexY < stageHeight; indexY++) {
+                        for (var indexX = 0; indexX < stageWidth; indexX++) {
+                            var index = indexX + indexY * stageHeight;
+                            stagePanel[index].frame = stageAry[indexY][indexX];
+                            if (stageAry[indexY][indexX] == 4) {
+                                gunmaIndexX = indexX;
+                                gunmaIndexY = indexY;
+                                gunma.x = outStageWidth + gunmaIndexX * stagePanelWidth;
+                                gunma.y = outStageHeight + gunmaIndexY * stagePanelHeight;
+                            }
+
+                        }
+                    }
+                }
+            }, false);
+
+
             //移動回数表示ラベルの設定
             var label = new Label('移動回数： ' + score + '回');
+            label.textAlign = moveCountLabel_textAlign;
             label.font = moveCountLabel_font;
             label.x = moveCountLabel_x;
             label.y = moveCountLabel_y;
+            label.width = moveCountLabel_width;
             scene.addChild(label);
 
             //フローチャート表示用ラベルの設定
@@ -689,11 +802,11 @@ window.onload = function () {
                 arrow[index] = new Sprite(panelImageWidth, panelImageHeight);
                 arrow[index].image = game_.assets['./img/arrow.png'];
                 arrow[index].frame = index;
-                arrow[index].x = outStageWidth + index * stagePanelWidth;
-                arrow[index].y = outStageHeight + stagePanelHeight * stageHeight + arrowYpadding;
-                arrow[index].scale(stagePanelWidth / panelImageWidth, stagePanelHeight / panelImageHeight);
-
+                arrow[index].scale(arrowPanelWidth / panelImageWidth, arrowPanelHeight / panelImageHeight);
                 scene.addChild(arrow[index]);
+                arrow[index].x = outStageWidth + index * arrowPanelWidth;
+                arrow[index].y = outStageHeight + stagePanelHeight * stageHeight + arrowYpadding;
+
 
                 arrow[index].addEventListener('touchstart', function () {
                     if (!goFlg) {
@@ -708,42 +821,15 @@ window.onload = function () {
 
             }
 
-            //リセットボタンの設定
-            var backArrow = new Sprite(panelImageWidth, panelImageHeight);
-            backArrow.image = game_.assets['./img/backArrow.png'];
-            backArrow.x = backArrow_x;
-            backArrow.y = backArrow_y;
-
-            scene.addChild(backArrow);
-            backArrow.addEventListener('touchstart', function () {
-                if (!goFlg) {
-                    //元ステージ情報を読み込み
-                    stageAry = JSON.parse(JSON.stringify(orgStage));
-
-                    //ステージ情報を画面描画に対応
-                    for (var indexY = 0; indexY < stageHeight; indexY++) {
-                        for (var indexX = 0; indexX < stageWidth; indexX++) {
-                            var index = indexX + indexY * stageHeight;
-                            stagePanel[index].frame = stageAry[indexY][indexX];
-                            if (stageAry[indexY][indexX] == 4) {
-                                gunmaIndexX = indexX;
-                                gunmaIndexY = indexY;
-                                gunma.x = outStageWidth + gunmaIndexX * stagePanelWidth;
-                                gunma.y = outStageHeight + gunmaIndexY * stagePanelHeight;
-                            }
-
-                        }
-                    }
-                }
-            }, false);
 
             //実行ボタンの設定
             var goButton = new Sprite(panelImageWidth, panelImageHeight);
             goButton.image = game_.assets['./img/go.png'];
-            goButton.x = goButton_x;
-            goButton.y = goButton_y;
-
+            goButton.scale(arrowPanelWidth / panelImageWidth, arrowPanelHeight / panelImageHeight);
             scene.addChild(goButton);
+            goButton.x = outStageWidth + 4 * arrowPanelWidth;
+            goButton.y = outStageHeight + stagePanelHeight * stageHeight + arrowYpadding;
+
             goButton.addEventListener('touchstart', function () {
                 //実行中フラグをONにする
                 goFlg = true;
@@ -782,6 +868,34 @@ window.onload = function () {
             //シーン全体の設定
             var scene = new Scene();
             scene.backgroundColor = gameoverScene_backgroundColor;
+            //タイトルラベルの設定
+            var title = new Label(title_text);
+            title.textAlign = title_textAlign;
+            title.color = title_color;
+            title.width = title_width;
+            title.x = title_posX;
+            title.y = title_posY;
+            title.font = title_font;
+            scene.addChild(title);
+
+            //サブタイトルラベルの設定
+            var subTitle = new Label(subTitle_text);
+            subTitle.textAlign = subTitle_textAlign;
+            subTitle.width = subTitle_width;
+            subTitle.x = subTitle_posX;
+            subTitle.y = subTitle_posY;
+            subTitle.font = subTitle_font;
+            scene.addChild(subTitle);
+
+            //許可番号の設定
+            var licLabel = new Label(licLabel_text);
+            licLabel.textAlign = licLabel_textAlign;
+            licLabel.width = licLabel_width;
+            licLabel.x = licLabel_posX;
+            licLabel.y = licLabel_posY;
+            licLabel.font = licLabel_font;
+            scene.addChild(licLabel);
+
 
             //クリア画像の設定
             //変数名をclearImageにすると、Imageのクリアを行う関数と紛らわしいのでgameoverに。
@@ -792,25 +906,75 @@ window.onload = function () {
             scene.addChild(gameoverImage);
 
             //結果表示ラベルの設定
-            var label = new Label(resultScore + resultLabel_text);
+            var resultIndex;
+            for (resultIndex = 0; resultScore < resultLabel_index[resultIndex]; resultIndex++);
+
+            var label = new Label(resultLabel_text[resultIndex]);
             label.textAlign = resultLabel_textAlign;
             label.color = resultLabel_color;
+            label.width = resultLabel_width;
             label.x = resultLabel_x;
             label.y = resultLabel_y;
             label.font = resultLabel_font;
             scene.addChild(label);
 
-            //リトライラベルの設定
-            var retryLabel = new Label(retryLabel_text);
-            retryLabel.color = retryLabel_color;
-            retryLabel.x = retryLabel_x;
-            retryLabel.y = retryLabel_y;
-            retryLabel.font = retryLabel_font;
-            scene.addChild(retryLabel);
 
-            retryLabel.addEventListener(Event.TOUCH_START, function (e) {
-                game_.replaceScene(createStartScene());//スタートシーンに戻る
+            var resultTips = new Label(resultTips_text[resultIndex]);
+            resultTips.textAlign = resultTips_textAlign;
+            resultTips.color = resultTips_color;
+            resultTips.width = resultTips_width;
+            resultTips.x = resultTips_x;
+            resultTips.y = resultTips_y;
+            resultTips.font = resultTips_font;
+            scene.addChild(resultTips);
+
+
+            //ホームへ戻るの設定
+            var backHomeScene = new Label(backHomeScene_text);
+            backHomeScene.textAlign = backHomeScene_textAlign;
+            backHomeScene.width = backHomeScene_width;
+            backHomeScene.x = backHomeScene_posX;
+            backHomeScene.y = backHomeScene_posY_under;
+            backHomeScene.font = backHomeScene_font;
+            scene.addChild(backHomeScene);
+            //スタートイメージがタッチ（クリック）されたときのイベント
+            backHomeScene.addEventListener(Event.TOUCH_START, function (e) {
+                //シーン遷移
+                game_.replaceScene(createStartScene());
             });
+
+            //ステージ選択へ戻るの設定
+            var backSelectScene = new Label(backSelectScene_text);
+            backSelectScene.textAlign = backSelectScene_textAlign;
+            backSelectScene.width = backSelectScene_width;
+            backSelectScene.x = backSelectScene_posX + backSelectScene_width;
+            backSelectScene.y = backSelectScene_posY_under;
+            backSelectScene.font = backSelectScene_font;
+            scene.addChild(backSelectScene);
+            //スタートイメージがタッチ（クリック）されたときのイベント
+            backSelectScene.addEventListener(Event.TOUCH_START, function (e) {
+                //シーン遷移
+                game_.replaceScene(createSelectScene());
+            });
+
+            //thunderbird.incの設定
+            var creditName = new Label(creditName_text);
+            creditName.textAlign = creditName_textAlign;
+            creditName.width = creditName_width;
+            creditName.x = creditName_posX;
+            creditName.y = creditName_posY;
+            creditName.font = creditName_font;
+            scene.addChild(creditName);
+
+            //お問い合わせの設定
+            var contactLabel = new Label(contactLabel_text);
+            contactLabel.textAlign = contactLabel_textAlign;
+            contactLabel.width = contactLabel_width;
+            contactLabel.x = contactLabel_posX;
+            contactLabel.y = contactLabel_posY;
+            contactLabel.font = contactLabel_font;
+            scene.addChild(contactLabel);
+
             return scene;
         };
 
