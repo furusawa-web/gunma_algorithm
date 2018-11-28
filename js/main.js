@@ -35,7 +35,15 @@ var stageAry = [
 var stageWidth = 5;
 var stageHeight = 5;
 
-var selectName = ["群馬県庁", "赤城山", "浅間山", "榛名山", "妙義山", "富岡製糸場"];
+var selectName = [
+    "(かんたん) 第1話 「下仁田ネギをゲットしよう」",
+    "(かんたん) 第2話 「高崎だるまに会いにいこう」",
+    "(かんたん) 第3話 「こんにゃくパークへ行こう」",
+    "(ふつう) 第1話 「すきやきを食べよう」",
+    "(ふつう) 第2話 「富岡製糸場へ行ってみよう」",
+    "(ふつう) 第3話 「赤城山で桜を見よう」",
+    "(むずかしい) 第1話 「県庁を目指そう」"
+];
 //todo: selectNameをキーにファイル読み込みを行う関数を用意する
 //---------------------------------
 
@@ -66,13 +74,6 @@ var subTitle_width = subTitle_fontSize * subTitle_text.length;
 var subTitle_posX = winWidth / 2 - subTitle_width / 2;
 var subTitle_posY = title_posY + title_fontSize + paddingSpace;
 
-//スタート画像の設定
-//画像サイズ
-var startImage_sizeX = 236;
-var startImage_sizeY = 48;
-//画像描画位置
-var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
-var startImage_posY = subTitle_posY + subTitle_fontSize + paddingSpace;
 
 //許可番号の設定
 var licLabel_text = '許可番号：１２３４５６７８';
@@ -81,7 +82,15 @@ var licLabel_fontSize = title_fontSize * 0.3;
 var licLabel_font = licLabel_fontSize + 'px sans-serif';
 var licLabel_width = licLabel_fontSize * licLabel_text.length;
 var licLabel_posX = winWidth / 2 - licLabel_width / 2;
-var licLabel_posY = startImage_posY + startImage_sizeY + paddingSpace;
+var licLabel_posY = subTitle_posY + subTitle_fontSize + paddingSpace;
+
+//スタート画像の設定
+//画像サイズ
+var startImage_sizeX = 236;
+var startImage_sizeY = 48;
+//画像描画位置
+var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
+var startImage_posY = licLabel_posY + licLabel_fontSize + paddingSpace;
 
 //staffの設定
 var staffLabel_text = 'S T A F F';
@@ -90,7 +99,7 @@ var staffLabel_fontSize = title_fontSize * 0.5;
 var staffLabel_font = staffLabel_fontSize + 'px sans-serif';
 var staffLabel_width = staffLabel_fontSize * staffLabel_text.length / 2;
 var staffLabel_posX = winWidth / 2 - staffLabel_width / 2;
-var staffLabel_posY = licLabel_posY + licLabel_fontSize + paddingSpace;
+var staffLabel_posY = startImage_posY + startImage_sizeY + paddingSpace;
 
 //staff役職の設定
 var staffLabelRole_text = 'Director  <br>Programmer  <br>Programmer  <br>Designer  <br>Omake  ';
@@ -133,10 +142,10 @@ var contactLabel_posY = creditName_posY - contactLabel_fontSize - paddingSpace;
 var selectScene_backgroundColor = '#fcc800';
 var selectStage_textAlign = 'center';
 var selectStage_color = '#ffffff';
-var selectStage_posX = 0;//x位置
-var selectStage_lineSpacing = 22; //行間設定用：（フォントサイズ+行間サイズで指定）
-var selectStage_font = '20px sans-serif';
-var selectStage_marginTop = 20;//上の余白設定用
+var selectStage_fontSize = title_fontSize * 0.5;
+var selectStage_lineSpacing = selectStage_fontSize * 2.5; //行間設定用：（フォントサイズ+行間サイズで指定）
+var selectStage_font = selectStage_fontSize + 'px sans-serif';
+var selectStage_marginTop = licLabel_posY + licLabel_fontSize + paddingSpace;//上の余白設定
 
 
 //ゲームシーンの設定
@@ -413,6 +422,34 @@ window.onload = function () {
             var scene = new Scene();
             scene.backgroundColor = selectScene_backgroundColor;
 
+            //タイトルラベルの設定
+            var title = new Label(title_text);
+            title.textAlign = title_textAlign;
+            title.color = title_color;
+            title.width = title_width;
+            title.x = title_posX;
+            title.y = title_posY;
+            title.font = title_font;
+            scene.addChild(title);
+
+            //サブタイトルラベルの設定
+            var subTitle = new Label(subTitle_text);
+            subTitle.textAlign = subTitle_textAlign;
+            subTitle.width = subTitle_width;
+            subTitle.x = subTitle_posX;
+            subTitle.y = subTitle_posY;
+            subTitle.font = subTitle_font;
+            scene.addChild(subTitle);
+
+            //許可番号の設定
+            var licLabel = new Label(licLabel_text);
+            licLabel.textAlign = licLabel_textAlign;
+            licLabel.width = licLabel_width;
+            licLabel.x = licLabel_posX;
+            licLabel.y = licLabel_posY;
+            licLabel.font = licLabel_font;
+            scene.addChild(licLabel);
+
             //描画用配列
             var selectStage = new Array();
 
@@ -422,10 +459,9 @@ window.onload = function () {
                 selectStage[index] = new Label(selectName[index]);
                 selectStage[index].textAlign = selectStage_textAlign;
                 selectStage[index].color = selectStage_color;
-                selectStage[index].x = selectStage_posX;
                 selectStage[index].y = selectStage_marginTop + selectStage_lineSpacing * index;
                 selectStage[index].font = selectStage_font;
-
+                selectStage[index].x = winWidth / 2 - selectStage[index].width / 2;
                 scene.addChild(selectStage[index]);
 
                 selectStage[index].addEventListener('touchstart', function () {
@@ -435,6 +471,30 @@ window.onload = function () {
                 }, false);
 
             }
+
+            //thunderbird.incの設定
+            var creditName = new Label(creditName_text);
+            creditName.textAlign = creditName_textAlign;
+            creditName.width = creditName_width;
+            creditName.x = creditName_posX;
+            creditName.y = creditName_posY;
+            creditName.font = creditName_font;
+            scene.addChild(creditName);
+
+            //お問い合わせの設定
+            var contactLabel = new Label(contactLabel_text);
+            contactLabel.textAlign = contactLabel_textAlign;
+            contactLabel.width = contactLabel_width;
+            contactLabel.x = contactLabel_posX;
+            contactLabel.y = contactLabel_posY;
+            contactLabel.font = contactLabel_font;
+            scene.addChild(contactLabel);
+
+            //お問い合わせボタンがタッチ（クリック）されたときのイベント
+            contactLabel.addEventListener(Event.TOUCH_START, function (e) {
+                window.open('https://www.thunderbird.co.jp/', '_blank');
+            });
+
 
             return scene;
         };
