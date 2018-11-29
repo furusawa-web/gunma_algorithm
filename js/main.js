@@ -105,7 +105,7 @@ var staffLabel_posX = winWidth / 2 - staffLabel_width / 2;
 var staffLabel_posY = startImage_posY + startImage_sizeY + paddingSpace;
 
 //staff役職の設定
-var staffLabelRole_text = 'Director  <br>Programmer  <br>Programmer  <br>Designer  <br>Omake  ';
+var staffLabelRole_text = 'Director  <br>Programmer  <br>Programmer  <br>Designer  <br>Tester  ';
 var staffLabelRole_textAlign = 'right';
 var staffLabelRole_fontSize = title_fontSize * 0.4;
 var staffLabelRole_font = staffLabelRole_fontSize + 'px sans-serif';
@@ -114,7 +114,7 @@ var staffLabelRole_posX = winWidth / 2 - staffLabelRole_width;
 var staffLabelRole_posY = staffLabel_posY + staffLabel_fontSize + paddingSpace;
 
 //staff名前の設定
-var staffLabelName_text = 'Yohei Yamane<br>Takahito Nara<br>Ryuya Furusawa<br>Tomoya Tsurumaki<br>Kengo Wada';
+var staffLabelName_text = 'Yohei Yamane<br>Takahito Nara<br>Ryuya Furusawa<br>XXXX XXXXXXX<br>Kengo Wada';
 var staffLabelName_textAlign = 'left';
 var staffLabelName_fontSize = title_fontSize * 0.4;
 var staffLabelName_font = staffLabelName_fontSize + 'px sans-serif';
