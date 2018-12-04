@@ -332,7 +332,7 @@ function sleep(a) {
     return;
 }
 
-function getJSON(path) {
+function getStageAry(path) {
     var req = new XMLHttpRequest();                     // XMLHttpRequest オブジェクトを生成する
     req.onreadystatechange = function () {               // XMLHttpRequest オブジェクトの状態が変化した際に呼び出されるイベントハンドラ
         if (req.readyState == 4 && req.status == 200) {   // サーバーからのレスポンスが完了し、かつ、通信が正常に終了した場合
@@ -342,7 +342,7 @@ function getJSON(path) {
 
             // JSON のデータ数分処理
             for (var i = 0; i < len; i++) {
-                console.log("id: " + data[i].id + ", name: " + data[i].name);
+                for (var j = 0; j < len; j++)console.log(data[i][j]);
             }
 
         }
@@ -357,7 +357,7 @@ window.onload = function () {
 
     //fpsは適当な値に設定
     game_.fps = 24;
-    getJSON("stage/sample.json");
+    getStageAry("stage/sample.json");
     //事前読み込み（以下で表示する画像は必ずここに記述）
     game_.preload('./img/arrow.png', './img/backArrow.png', './img/stagePanel.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
 
