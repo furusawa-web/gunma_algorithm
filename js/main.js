@@ -332,6 +332,24 @@ function sleep(a) {
     return;
 }
 
+function getJSON(path) {
+    var req = new XMLHttpRequest();                     // XMLHttpRequest オブジェクトを生成する
+    req.onreadystatechange = function () {               // XMLHttpRequest オブジェクトの状態が変化した際に呼び出されるイベントハンドラ
+        if (req.readyState == 4 && req.status == 200) {   // サーバーからのレスポンスが完了し、かつ、通信が正常に終了した場合
+
+            var data = JSON.parse(req.responseText);    // 取得した JSON ファイルの中身を変数へ格納
+            var len = data.length;                      // JSON のデータ数を取得
+
+            // JSON のデータ数分処理
+            for (var i = 0; i < len; i++) {
+                console.log("id: " + data[i].id + ", name: " + data[i].name);
+            }
+
+        }
+    };
+    req.open("GET", path, false);              // HTTPメソッドとアクセスするサーバーのURLを指定
+    req.send(null);                                     // 実際にサーバーへリクエストを送信
+}
 
 window.onload = function () {
     //ゲーム画面（現在はウインドウサイズ取得してウインドウ全体）
@@ -339,7 +357,7 @@ window.onload = function () {
 
     //fpsは適当な値に設定
     game_.fps = 24;
-
+    getJSON("stage/sample.json");
     //事前読み込み（以下で表示する画像は必ずここに記述）
     game_.preload('./img/arrow.png', './img/backArrow.png', './img/stagePanel.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
 
