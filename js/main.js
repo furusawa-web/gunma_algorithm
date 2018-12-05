@@ -531,7 +531,7 @@ window.onload = function () {
             //描画用配列
             var selectStage = new Array();
 
-            for (var index = 0; index < 6; index++) {
+            for (var index = 0; index < 7; index++) {
 
                 //ステージ選択ラベルの設定
                 selectStage[index] = new Label(selectName[index]);
