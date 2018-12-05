@@ -637,6 +637,7 @@ window.onload = function () {
                             gunmaIndexX = startIndexX;
                             gunma.y = startY;
                             gunmaIndexY = startIndexY;
+                            gunma.frame = 0;
                         } else {
                             var i = 0;
                             var index = comList[i];//フローチャート先頭を取得
@@ -690,9 +691,9 @@ window.onload = function () {
                             comArrow.text = comArrow.text.slice(5);
                             //フローチャート用配列の先頭削除
                             comList.shift();
+                            //ステップごとの実行に必要
+                            sleep(500);
                         }
-                        //ステップごとの実行に必要
-                        sleep(500);
                     }
                 }
             });
