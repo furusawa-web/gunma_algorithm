@@ -11,6 +11,7 @@ var stageFloorPanel = 0;
 //---------------------------------------
 
 var stagePanel = new Array(); //ステージ描画用
+var imageFileName = './img/stagePanel.png';
 
 //ぐんまちゃん位置情報
 var gunmaIndexX = 0;
@@ -28,13 +29,7 @@ if (winWidth > winHeight) winWidth_Use = winHeight * 3 / 5;
 
 
 //ステージ情報-------------------------------
-var stageAry = [
-    [0, 0, 0, 1, 6],
-    [0, 0, 0, 1, 5],
-    [0, 0, 2, 3, 3],
-    [0, 0, 0, 0, 0],
-    [4, 0, 0, 0, 0]
-];
+var stageAry = [];
 var stageWidth = 5;
 var stageHeight = 5;
 
@@ -255,6 +250,16 @@ var resultTips_y = resultLabel_fontSize + resultLabel_y + paddingSpace;
 var resultTips_fontSize = title_fontSize * 0.5;
 var resultTips_font = resultTips_fontSize + 'px sans-serif';
 
+var tips_text = "";
+var tips_textAlign = 'center';
+var tips_color = '#000';
+var tips_width = winWidth;
+var tips_x = 0;
+var tips_y = resultTips_fontSize + resultTips_y + paddingSpace * 2;
+var tips_fontSize = title_fontSize * 0.5;
+var tips_font = tips_fontSize + 'px sans-serif';
+
+
 var backHomeScene_posY_under = contactLabel_posY - (backHomeScene_fontSize + paddingSpace);
 var backSelectScene_posY_under = backHomeScene_posY_under;
 //-----------------------
@@ -338,13 +343,17 @@ function getStageAry(path) {
         if (req.readyState == 4 && req.status == 200) {   // サーバーからのレスポンスが完了し、かつ、通信が正常に終了した場合
 
             var data = JSON.parse(req.responseText);    // 取得した JSON ファイルの中身を変数へ格納
-            var len = data.length;                      // JSON のデータ数を取得
+            var len = data[0].length;                      // stage の行数を取得
 
             // JSON のデータ数分処理
             for (var i = 0; i < len; i++) {
-                for (var j = 0; j < len; j++)console.log(data[i][j]);
+                stageAry[i] = [];
+                for (var j = 0; j < len; j++) stageAry[i][j] = data[0][i][j];
             }
+            tips_text = data[1];
+            imageFileName = data[2]
 
+            for (var i = 0; i < 3; i++)resultLabel_index[i] = data[3][i];
         }
     };
     req.open("GET", path, false);              // HTTPメソッドとアクセスするサーバーのURLを指定
@@ -357,15 +366,14 @@ window.onload = function () {
 
     //fpsは適当な値に設定
     game_.fps = 24;
-    getStageAry("stage/sample.json");
     //事前読み込み（以下で表示する画像は必ずここに記述）
     game_.preload('./img/arrow.png', './img/backArrow.png', './img/stagePanel.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
         /**
-        * start scene
-        */
+         * start scene
+         */
         var createStartScene = function () {
             //シーン全体の設定
             var scene = new Scene();
@@ -477,7 +485,7 @@ window.onload = function () {
 
         /**
          * select scene
-        */
+         */
         var createSelectScene = function () {
             //シーン全体の設定
             var scene = new Scene();
@@ -529,6 +537,7 @@ window.onload = function () {
                 selectStage[index].addEventListener('touchstart', function () {
                     //ここにindexによってファイルを読み込んで、配列を更新する処理を追加する
                     //ただし、indexの取得が困難なので、this.yを利用して、indexを逆算する必要がある
+                    getStageAry("stage/sample.json");
                     game_.replaceScene(createGameScene());
                 }, false);
 
@@ -784,7 +793,7 @@ window.onload = function () {
                     var index = indexX + indexY * stageHeight;
 
                     stagePanel[index] = new Sprite(panelImageWidth, panelImageHeight);
-                    stagePanel[index].image = game_.assets['./img/stagePanel.png'];
+                    stagePanel[index].image = game_.assets[imageFileName];
                     stagePanel[index].frame = stageAry[indexY][indexX];
                     stagePanel[index].x = outStageWidth + indexX * stagePanelWidth;
                     stagePanel[index].y = outStageHeight + indexY * stagePanelHeight;
@@ -974,6 +983,16 @@ window.onload = function () {
                 //シーン遷移
                 game_.replaceScene(createSelectScene());
             });
+
+            //tipsの設定
+            var tips = new Label(tips_text);
+            tips.textAlign = tips_textAlign;
+            tips.width = tips_width;
+            tips.x = tips_x;
+            tips.y = tips_y;
+            tips.font = tips_font;
+            scene.addChild(tips);
+
 
             //thunderbird.incの設定
             var creditName = new Label(creditName_text);
