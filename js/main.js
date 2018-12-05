@@ -833,6 +833,10 @@ window.onload = function () {
                     if (stageAry[indexY][indexX] == stageStartPanel) {
                         gunmaIndexX = indexX;
                         gunmaIndexY = indexY;
+                        startIndexX = gunmaIndexX;
+                        startIndexY = gunmaIndexY
+                        startX = stagePanel[index].x;
+                        startY = stagePanel[index].y;
                     }
 
                     scene.addChild(stagePanel[index]);
