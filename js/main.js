@@ -322,7 +322,7 @@ var moveGunma = function (x, y, moveX, moveY) {
     } else if (stageAry[y + moveY][x + moveX] == stageHolePanel) {
         gunma.frame = 2;
     }
-
+    stageAry[y + moveY][x + moveX] = stageFloorPanel;
     updateStage(x + moveX, y + moveY);
     return true;
 }
