@@ -376,7 +376,7 @@ window.onload = function () {
     //fpsは適当な値に設定
     game_.fps = 24;
     //事前読み込み（以下で表示する画像は必ずここに記述）
-    game_.preload('./img/arrow.png', './img/backArrow.png', './img/stagePanel.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
+    game_.preload('./img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
