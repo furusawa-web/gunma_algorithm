@@ -351,8 +351,8 @@ function getStageAry(path) {
                 stageAry[i] = [];
                 for (var j = 0; j < len; j++) stageAry[i][j] = data[0][i][j];
             }
-            tips_text = data[1];
-            imageFileName = data[2]
+            tips_text = data[1][0];
+            imageFileName = data[2][0];
 
             for (var i = 0; i < 3; i++)resultLabel_index[i] = data[3][i];
 
