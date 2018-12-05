@@ -21,7 +21,7 @@ var gunma;
 var startIndexX = 0;
 var startIndexY = 0;
 var startX = 0;
-var starty = 0;
+var startY = 0;
 
 var comList = new Array(); //フローチャート保存用可変長配列
 
