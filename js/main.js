@@ -33,6 +33,7 @@ var stageAry = [];
 var stageWidth = 5;
 var stageHeight = 5;
 
+
 var selectName = [
     "(かんたん) 第1話 「下仁田ネギをゲットしよう」",
     "(かんたん) 第2話 「高崎だるまに会いにいこう」",
@@ -354,6 +355,14 @@ function getStageAry(path) {
             imageFileName = data[2]
 
             for (var i = 0; i < 3; i++)resultLabel_index[i] = data[3][i];
+
+            //ステージサイズ等の更新
+            stageWidth = len;
+            stageHeight = len;
+            //パネルの描画サイズ
+            stagePanelWidth = stageRangeWidth / stageWidth;
+            stagePanelHeight = stageRangeHeight / stageHeight;
+
         }
     };
     req.open("GET", path, false);              // HTTPメソッドとアクセスするサーバーのURLを指定
@@ -537,7 +546,8 @@ window.onload = function () {
                 selectStage[index].addEventListener('touchstart', function () {
                     //ここにindexによってファイルを読み込んで、配列を更新する処理を追加する
                     //ただし、indexの取得が困難なので、this.yを利用して、indexを逆算する必要がある
-                    getStageAry("stage/sample.json");
+                    var index = Math.round((this.y - selectStage_marginTop) / selectStage_lineSpacing);
+                    getStageAry("./stage/stage" + index + ".json");
                     game_.replaceScene(createGameScene());
                 }, false);
 
