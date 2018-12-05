@@ -609,7 +609,7 @@ window.onload = function () {
             scene.addEventListener(Event.ENTER_FRAME, function () {
 
                 //ぐんまちゃんが歩くアニメーション
-                if (++frameCount >= 12) {
+                if (++frameCount >= 12 && gunma.frame != 2) {
                     gunma.frame = Math.abs(gunma.frame - 1);//0と1を往復する
                     frameCount = 0;
                 }
