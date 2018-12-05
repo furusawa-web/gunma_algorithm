@@ -631,7 +631,7 @@ window.onload = function () {
                         //実行中フラグOFF
                         goFlg = false;
                     } else {
-                        if (gunma.frama == 2) {
+                        if (gunma.frame == 2) {
                             //ぐんまちゃんの移動
                             gunma.x = startX;
                             gunmaIndexX = startIndexX;
