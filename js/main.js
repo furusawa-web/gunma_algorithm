@@ -849,7 +849,7 @@ window.onload = function () {
                     if (!goFlg) {
                         //indexが取得できないようなので、x座標から逆算して強引に取得
                         //上を修正するならここも修正必須
-                        var index = Math.round((this.x - outStageWidth) / stagePanelWidth);
+                        var index = Math.round((this.x - outStageWidth) / arrowPanelWidth);
                         var indexChar = ['←', '↑', '→', '↓'];
                         comArrow.text = comArrow.text + indexChar[index] + '<br>';
                         comList.push(index);
