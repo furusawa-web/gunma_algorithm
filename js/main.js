@@ -16,6 +16,12 @@ var imageFileName = './img/stagePanel.png';
 //ぐんまちゃん位置情報
 var gunmaIndexX = 0;
 var gunmaIndexY = 0;
+var gunma;
+
+var startIndexX = 0;
+var startIndexY = 0;
+var startX = 0;
+var starty = 0;
 
 var comList = new Array(); //フローチャート保存用可変長配列
 
@@ -274,8 +280,8 @@ var moveCheck = function (x, y, moveX, moveY) {
     if (y + moveY < 0 || x + moveX < 0) return false;
     if (y + moveY >= stageHeight || x + moveX >= stageWidth) return false;
 
-    //移動先が穴もしくは壁だった場合
-    if (stageAry[y + moveY][x + moveX] == stageHolePanel || stageAry[y + moveY][x + moveX] == stageWallPanel) {
+    //移動先が壁だった場合
+    if (stageAry[y + moveY][x + moveX] == stageWallPanel) {
         return false;
         //移動先に岩があった場合
     } else if (stageAry[y + moveY][x + moveX] == stageRockPanel) {
@@ -312,10 +318,10 @@ var moveGunma = function (x, y, moveX, moveY) {
             stageAry[y + moveY * 2][x + moveX * 2] = stageRockPanel;
         }
         updateStage(x + moveX * 2, y + moveY * 2);
+        //移動先が穴だった場合
+    } else if (stageAry[y + moveY][x + moveX] == stageHolePanel) {
+        gunma.frame = 2;
     }
-
-    //ぐんまちゃんの移動先を床にする.（不必要なので消してもよい）
-    stageAry[y + moveY][x + moveX] = stageFloorPanel;
 
     updateStage(x + moveX, y + moveY);
     return true;
@@ -625,59 +631,66 @@ window.onload = function () {
                         //実行中フラグOFF
                         goFlg = false;
                     } else {
-                        var i = 0;
-                        var index = comList[i];//フローチャート先頭を取得
-
-                        //画面サイズに応じたぐんまちゃんのうごく長さ情報
-                        var gunmaSpeedX = 0;
-                        var gunmaSpeedY = 0;
-
-                        //左右の矢印が0と2
-                        //上下の矢印が1と3
-                        //
-
-                        //あとで素直にcase文に直す
-                        if (index % 2 == 0) {
-                            gunmaSpeedX = stagePanelWidth;
-                            if (index == 0) gunmaSpeedX *= -1;
-                        } else {
-                            gunmaSpeedY = stagePanelHeight;
-                            if (index == 1) gunmaSpeedY *= -1;
-                        }
-
-                        var moveX = 0;
-                        var moveY = 0;
-
-                        if (gunmaSpeedX != 0) {
-                            //index単位での動く量の取得(1,0,-1)
-                            moveX = gunmaSpeedX / Math.abs(gunmaSpeedX);
-                        } else if (gunmaSpeedY != 0) {
-                            //index単位での動く量の取得(1,0,-1)
-                            moveY = gunmaSpeedY / Math.abs(gunmaSpeedY);
-                        }
-
-                        //うごける場合
-                        if (moveGunma(gunmaIndexX, gunmaIndexY, moveX, moveY)) {
-
+                        if (gunma.frama == 2) {
                             //ぐんまちゃんの移動
-                            gunma.x += gunmaSpeedX;
-                            gunmaIndexX += moveX;
-                            gunma.y += gunmaSpeedY;
-                            gunmaIndexY += moveY;
+                            gunma.x = startX;
+                            gunmaIndexX = startIndexX;
+                            gunma.y = startY;
+                            gunmaIndexY = startIndexY;
+                        } else {
+                            var i = 0;
+                            var index = comList[i];//フローチャート先頭を取得
 
-                            //移動回数更新
-                            score++;
-                            label.text = '移動回数： ' + score + '回';
+                            //画面サイズに応じたぐんまちゃんのうごく長さ情報
+                            var gunmaSpeedX = 0;
+                            var gunmaSpeedY = 0;
+
+                            //左右の矢印が0と2
+                            //上下の矢印が1と3
+                            //
+
+                            //あとで素直にcase文に直す
+                            if (index % 2 == 0) {
+                                gunmaSpeedX = stagePanelWidth;
+                                if (index == 0) gunmaSpeedX *= -1;
+                            } else {
+                                gunmaSpeedY = stagePanelHeight;
+                                if (index == 1) gunmaSpeedY *= -1;
+                            }
+
+                            var moveX = 0;
+                            var moveY = 0;
+
+                            if (gunmaSpeedX != 0) {
+                                //index単位での動く量の取得(1,0,-1)
+                                moveX = gunmaSpeedX / Math.abs(gunmaSpeedX);
+                            } else if (gunmaSpeedY != 0) {
+                                //index単位での動く量の取得(1,0,-1)
+                                moveY = gunmaSpeedY / Math.abs(gunmaSpeedY);
+                            }
+
+                            //うごける場合
+                            if (moveGunma(gunmaIndexX, gunmaIndexY, moveX, moveY)) {
+
+                                //ぐんまちゃんの移動
+                                gunma.x += gunmaSpeedX;
+                                gunmaIndexX += moveX;
+                                gunma.y += gunmaSpeedY;
+                                gunmaIndexY += moveY;
+
+                                //移動回数更新
+                                score++;
+                                label.text = '移動回数： ' + score + '回';
+                            }
+                            //動けないやじるしの入力があった場合の処理はここにelseで追加
+                            //首をかしげるとか、ペナルティをつけるとか
+
+                            //フローチャート表示の先頭を5文字削除
+                            //"<br>"の四文字と矢印の一文字で計五文字
+                            comArrow.text = comArrow.text.slice(5);
+                            //フローチャート用配列の先頭削除
+                            comList.shift();
                         }
-                        //動けないやじるしの入力があった場合の処理はここにelseで追加
-                        //首をかしげるとか、ペナルティをつけるとか
-
-                        //フローチャート表示の先頭を5文字削除
-                        //"<br>"の四文字と矢印の一文字で計五文字
-                        comArrow.text = comArrow.text.slice(5);
-                        //フローチャート用配列の先頭削除
-                        comList.shift();
-
                         //ステップごとの実行に必要
                         sleep(500);
                     }
@@ -770,6 +783,10 @@ window.onload = function () {
                                 gunmaIndexY = indexY;
                                 gunma.x = outStageWidth + gunmaIndexX * stagePanelWidth;
                                 gunma.y = outStageHeight + gunmaIndexY * stagePanelHeight;
+                                startIndexX = gunmaIndexX;
+                                startIndexY = gunmaIndexY
+                                startX = gunma.x;
+                                startY = gunma.y;
                             }
 
                         }
@@ -822,7 +839,7 @@ window.onload = function () {
             }
 
             //ぐんまちゃんの設定
-            var gunma = new Sprite(panelImageWidth, panelImageHeight);
+            gunma = new Sprite(panelImageWidth, panelImageHeight);
             gunma.image = game_.assets['./img/gunma.png'];
             gunma.scale(stagePanelWidth / panelImageWidth, stagePanelHeight / panelImageHeight);
             gunma.x = outStageWidth + gunmaIndexX * stagePanelWidth;
