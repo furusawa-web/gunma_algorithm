@@ -490,9 +490,9 @@ window.onload = function () {
             
             scene.addEventListener(Event.ENTER_FRAME, function () {
                 if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
-                   document.body.style.cursor='default';
+                   document.body.style.cursor='pointer';
                 }else{
-                    document.body.style.cursor='pointer';
+                    document.body.style.cursor='default';
                 }
             });
 
@@ -599,9 +599,9 @@ window.onload = function () {
             });
 scene.addEventListener(Event.ENTER_FRAME, function () {
                 if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
-                   document.body.style.cursor='default';
+                   document.body.style.cursor='pointer';
                 }else{
-                    document.body.style.cursor='pointer';
+                    document.body.style.cursor='default';
                 }
             });
 
@@ -632,9 +632,9 @@ scene.addEventListener(Event.ENTER_FRAME, function () {
             scene.addEventListener(Event.ENTER_FRAME, function () {
                 
                 if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
-                   document.body.style.cursor='default';
+                   document.body.style.cursor='pointer';
                 }else{
-                    document.body.style.cursor='pointer';
+                    document.body.style.cursor='default';
                 }
 
                 //ぐんまちゃんが歩くアニメーション
@@ -1075,9 +1075,9 @@ scene.addEventListener(Event.ENTER_FRAME, function () {
             
 scene.addEventListener(Event.ENTER_FRAME, function () {
                 if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
-                   document.body.style.cursor='default';
+                   document.body.style.cursor='pointer';
                 }else{
-                    document.body.style.cursor='pointer';
+                    document.body.style.cursor='default';
                 }
             });
 
