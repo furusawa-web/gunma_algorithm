@@ -490,7 +490,7 @@ window.onload = function () {
             });
 
             scene.addEventListener(Event.ENTER_FRAME, function () {
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel.height) >= mY)) {
+                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
@@ -599,7 +599,7 @@ window.onload = function () {
                 window.open('https://www.thunderbird.co.jp/', '_blank');
             });
             scene.addEventListener(Event.ENTER_FRAME, function () {
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel.height) >= mY)) {
+                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
@@ -632,7 +632,7 @@ window.onload = function () {
             //フレームが進むたびに呼ばれる（描画も、実際はこのタイミングで、まとめて行われている）
             scene.addEventListener(Event.ENTER_FRAME, function () {
 
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel.height) >= mY)) {
+                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
@@ -1075,7 +1075,7 @@ window.onload = function () {
             scene.addChild(contactLabel);
 
             scene.addEventListener(Event.ENTER_FRAME, function () {
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel.height) >= mY)) {
+                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
