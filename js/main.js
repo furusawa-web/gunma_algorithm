@@ -376,6 +376,14 @@ function getStageAry(path) {
 }
 
 window.onload = function () {
+    var mX;
+    var mY;
+  //マウス移動時のイベントをBODYタグに登録する
+  document.body.addEventListener("mousemove", function(e){
+    //座標を取得する
+    mX = e.pageX;  //X座標
+    mY = e.pageY;  //Y座標
+  });
     //ゲーム画面（現在はウインドウサイズ取得してウインドウ全体）
     var game_ = new Game(winWidth, winHeight);
 
@@ -479,6 +487,14 @@ window.onload = function () {
             contactLabel.addEventListener(Event.TOUCH_START, function (e) {
                 window.open('https://www.thunderbird.co.jp/', '_blank');
             });
+            
+            scene.addEventListener(Event.ENTER_FRAME, function () {
+                if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
+                   document.body.style.cursor='pointer';
+                }else{
+                    document.body.style.cursor='default';
+                }
+            });
 
 
             //スタートイメージがタッチ（クリック）されたときのイベント
@@ -581,6 +597,13 @@ window.onload = function () {
             contactLabel.addEventListener(Event.TOUCH_START, function (e) {
                 window.open('https://www.thunderbird.co.jp/', '_blank');
             });
+scene.addEventListener(Event.ENTER_FRAME, function () {
+                if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
+                   document.body.style.cursor='pointer';
+                }else{
+                    document.body.style.cursor='default';
+                }
+            });
 
 
             return scene;
@@ -607,6 +630,12 @@ window.onload = function () {
 
             //フレームが進むたびに呼ばれる（描画も、実際はこのタイミングで、まとめて行われている）
             scene.addEventListener(Event.ENTER_FRAME, function () {
+                
+                if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
+                   document.body.style.cursor='pointer';
+                }else{
+                    document.body.style.cursor='default';
+                }
 
                 //ぐんまちゃんが歩くアニメーション
                 if (++frameCount >= 12 && gunma.frame != 2) {
@@ -1043,6 +1072,14 @@ window.onload = function () {
             contactLabel.y = contactLabel_posY;
             contactLabel.font = contactLabel_font;
             scene.addChild(contactLabel);
+            
+scene.addEventListener(Event.ENTER_FRAME, function () {
+                if((contactLabel.x  <= mX && (contactLabel.x + contactLabel.width) >= mX) && (contactLabel.y  <= mY && (contactLabel.y + contactLabel.height) >= mY)){
+                   document.body.style.cursor='pointer';
+                }else{
+                    document.body.style.cursor='default';
+                }
+            });
 
             return scene;
         };
