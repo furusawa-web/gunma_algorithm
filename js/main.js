@@ -1,6 +1,13 @@
 // encode 'UTF-8'
 //使用したフレームワーク : enchant.js
 
+//ToDo
+//ボタンカーソル対応
+//タイトルをテキストから画像に変更
+//画像自体の差し替え
+//文字化け(多分json)
+//その他調整
+
 //ステージ上各パネルの値設定------------------------------------
 var stageStartPanel = 4;
 var stageGoalPanel = 5;//（5以上のパネルはすべてゴール）
@@ -50,7 +57,7 @@ var selectName = [
     "(ふつう) 第1話 「すきやきを食べよう」",
     "(ふつう) 第2話 「富岡製糸場へ行ってみよう」",
     "(ふつう) 第3話 「赤城山で桜を見よう」",
-    "(むずかしい) 第1話 「県庁を目指そう」"
+    "(むずかしい) 第1話 「群馬で一番高いビルを目指そう」"
 ];
 //todo: selectNameをキーにファイル読み込みを行う関数を用意する
 //---------------------------------
@@ -119,7 +126,7 @@ var staffLabelRole_posX = winWidth / 2 - staffLabelRole_width;
 var staffLabelRole_posY = staffLabel_posY + staffLabel_fontSize + paddingSpace;
 
 //staff名前の設定
-var staffLabelName_text = 'Yohei Yamane<br>Takahito Nara<br>Ryuya Furusawa<br>XXXX XXXXXXX<br>Kengo Wada';
+var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Takahito Nara<br>XXXX XXXXXXX<br>Kengo Wada';
 var staffLabelName_textAlign = 'left';
 var staffLabelName_fontSize = title_fontSize * 0.4;
 var staffLabelName_font = staffLabelName_fontSize + 'px sans-serif';
@@ -347,6 +354,14 @@ function sleep(a) {
     return;
 }
 
+function checkMouseOver(obj_top, obj_left, obj_height, obj_width) {
+    if ((obj_left <= mX && (obj_left + obj_width) >= mX) && (obj_top <= mY && (obj_top + obj_height) >= mY)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function getStageAry(path) {
     var req = new XMLHttpRequest();                     // XMLHttpRequest オブジェクトを生成する
     req.onreadystatechange = function () {               // XMLHttpRequest オブジェクトの状態が変化した際に呼び出されるイベントハンドラ
@@ -490,7 +505,9 @@ window.onload = function () {
             });
 
             scene.addEventListener(Event.ENTER_FRAME, function () {
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
+                var mouseOverFlg = false;
+                mouseOverFlg = mouseOverFlg || checkMouseOver(contactLabel_posY, contactLabel_posX, contactLabel_fontSize, contactLabel_width);
+                if (mouseOverFlg) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
@@ -599,7 +616,9 @@ window.onload = function () {
                 window.open('https://www.thunderbird.co.jp/', '_blank');
             });
             scene.addEventListener(Event.ENTER_FRAME, function () {
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
+                var mouseOverFlg = false;
+                mouseOverFlg = mouseOverFlg || checkMouseOver(contactLabel_posY, contactLabel_posX, contactLabel_fontSize, contactLabel_width);
+                if (mouseOverFlg) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
@@ -632,7 +651,9 @@ window.onload = function () {
             //フレームが進むたびに呼ばれる（描画も、実際はこのタイミングで、まとめて行われている）
             scene.addEventListener(Event.ENTER_FRAME, function () {
 
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
+                var mouseOverFlg = false;
+                mouseOverFlg = mouseOverFlg || checkMouseOver(contactLabel_posY, contactLabel_posX, contactLabel_fontSize, contactLabel_width);
+                if (mouseOverFlg) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
@@ -1075,7 +1096,9 @@ window.onload = function () {
             scene.addChild(contactLabel);
 
             scene.addEventListener(Event.ENTER_FRAME, function () {
-                if ((contactLabel_posX <= mX && (contactLabel_posX + contactLabel_width) >= mX) && (contactLabel_posY <= mY && (contactLabel_posY + contactLabel_fontSize) >= mY)) {
+                var mouseOverFlg = false;
+                mouseOverFlg = mouseOverFlg || checkMouseOver(contactLabel_posY, contactLabel_posX, contactLabel_fontSize, contactLabel_width);
+                if (mouseOverFlg) {
                     document.body.style.cursor = 'pointer';
                 } else {
                     document.body.style.cursor = 'default';
