@@ -83,13 +83,13 @@ var title_posX = winWidth / 2 - title_sizeX / 2;
 var title_posY = paddingSpace;
 
 //サブタイトルラベルの設定
-var subTitle_text = '- アルゴリズムをまなぼう -';
-var subTitle_textAlign = 'center';
-var subTitle_fontSize = title_fontSize * 0.5;
-var subTitle_font = subTitle_fontSize + 'px sans-serif';
-var subTitle_width = subTitle_fontSize * subTitle_text.length;
-var subTitle_posX = winWidth / 2 - subTitle_width / 2;
-var subTitle_posY = title_posY + title_sizeY * title_scale + paddingSpace;
+//var subTitle_text = '- アルゴリズムをまなぼう -';
+//var subTitle_textAlign = 'center';
+//var subTitle_fontSize = title_fontSize * 0.5;
+//var subTitle_font = subTitle_fontSize + 'px sans-serif';
+//var subTitle_width = subTitle_fontSize * subTitle_text.length;
+//var subTitle_posX = winWidth / 2 - subTitle_width / 2;
+//var subTitle_posY = title_posY + title_sizeY * title_scale + paddingSpace;
 
 
 //許可番号の設定
@@ -99,7 +99,7 @@ var licLabel_fontSize = title_fontSize * 0.3;
 var licLabel_font = licLabel_fontSize + 'px sans-serif';
 var licLabel_width = licLabel_fontSize * licLabel_text.length;
 var licLabel_posX = winWidth / 2 - licLabel_width / 2;
-var licLabel_posY = subTitle_posY + subTitle_fontSize + paddingSpace;
+var licLabel_posY = title_posY + title_sizeY * title_scale + paddingSpace;//subTitle_posY + subTitle_fontSize + paddingSpace;
 
 //スタート画像の設定
 //画像サイズ
@@ -272,8 +272,8 @@ var resultTips_font = resultTips_fontSize + 'px sans-serif';
 var tips_text = "";
 var tips_textAlign = 'center';
 var tips_color = '#000';
-var tips_width = winWidth;
-var tips_x = 0;
+var tips_width = winWidth * 0.8;
+var tips_x = winWidth / 2 - tips_width / 2;
 var tips_y = resultTips_fontSize + resultTips_y + paddingSpace * 2;
 var tips_fontSize = title_fontSize * 0.5;
 var tips_font = tips_fontSize + 'px sans-serif';
@@ -446,13 +446,13 @@ window.onload = function () {
             scene.addChild(title);
 
             //サブタイトルラベルの設定
-            var subTitle = new Label(subTitle_text);
-            subTitle.textAlign = subTitle_textAlign;
-            subTitle.width = subTitle_width;
-            subTitle.x = subTitle_posX;
-            subTitle.y = subTitle_posY;
-            subTitle.font = subTitle_font;
-            scene.addChild(subTitle);
+            //var subTitle = new Label(subTitle_text);
+            //subTitle.textAlign = subTitle_textAlign;
+            //subTitle.width = subTitle_width;
+            //subTitle.x = subTitle_posX;
+            //subTitle.y = subTitle_posY;
+            //subTitle.font = subTitle_font;
+            //scene.addChild(subTitle);
 
             //許可番号の設定
             var licLabel = new Label(licLabel_text);
@@ -566,13 +566,13 @@ window.onload = function () {
             scene.addChild(title);
 
             //サブタイトルラベルの設定
-            var subTitle = new Label(subTitle_text);
-            subTitle.textAlign = subTitle_textAlign;
-            subTitle.width = subTitle_width;
-            subTitle.x = subTitle_posX;
-            subTitle.y = subTitle_posY;
-            subTitle.font = subTitle_font;
-            scene.addChild(subTitle);
+            //var subTitle = new Label(subTitle_text);
+            //subTitle.textAlign = subTitle_textAlign;
+            //subTitle.width = subTitle_width;
+            //subTitle.x = subTitle_posX;
+            //subTitle.y = subTitle_posY;
+            //subTitle.font = subTitle_font;
+            //scene.addChild(subTitle);
 
             //許可番号の設定
             var licLabel = new Label(licLabel_text);
@@ -779,13 +779,13 @@ window.onload = function () {
             scene.addChild(title);
 
             //サブタイトルラベルの設定
-            var subTitle = new Label(subTitle_text);
-            subTitle.textAlign = subTitle_textAlign;
-            subTitle.width = subTitle_width;
-            subTitle.x = subTitle_posX;
-            subTitle.y = subTitle_posY;
-            subTitle.font = subTitle_font;
-            scene.addChild(subTitle);
+            //var subTitle = new Label(subTitle_text);
+            //subTitle.textAlign = subTitle_textAlign;
+            //subTitle.width = subTitle_width;
+            //subTitle.x = subTitle_posX;
+            //subTitle.y = subTitle_posY;
+            //subTitle.font = subTitle_font;
+            //scene.addChild(subTitle);
 
             //許可番号の設定
             var licLabel = new Label(licLabel_text);
@@ -1014,13 +1014,13 @@ window.onload = function () {
             scene.addChild(title);
 
             //サブタイトルラベルの設定
-            var subTitle = new Label(subTitle_text);
-            subTitle.textAlign = subTitle_textAlign;
-            subTitle.width = subTitle_width;
-            subTitle.x = subTitle_posX;
-            subTitle.y = subTitle_posY;
-            subTitle.font = subTitle_font;
-            scene.addChild(subTitle);
+            //var subTitle = new Label(subTitle_text);
+            //subTitle.textAlign = subTitle_textAlign;
+            //subTitle.width = subTitle_width;
+            //subTitle.x = subTitle_posX;
+            //subTitle.y = subTitle_posY;
+            //subTitle.font = subTitle_font;
+            //scene.addChild(subTitle);
 
             //許可番号の設定
             var licLabel = new Label(licLabel_text);
