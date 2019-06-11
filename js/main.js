@@ -80,7 +80,7 @@ var title_sizeX = 280;
 var title_sizeY = 111;
 var title_scale = title_width / title_sizeX * 0.5;
 var title_posX = winWidth / 2 - title_sizeX / 2;
-var title_posY = paddingSpace * 0.3;
+var title_posY = paddingSpace * 0.2;
 
 //サブタイトルラベルの設定
 //var subTitle_text = '- アルゴリズムをまなぼう -';
