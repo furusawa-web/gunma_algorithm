@@ -78,7 +78,7 @@ var title_font = title_fontSize + 'px sans-serif';
 var title_width = title_fontSize * title_text.length;
 var title_sizeX = 280;
 var title_sizeY = 111;
-var title_scale = title_width / title_sizeX * 0.8;
+var title_scale = title_width / title_sizeX * 0.5;
 var title_posX = winWidth / 2 - title_sizeX / 2;
 var title_posY = paddingSpace;
 
@@ -170,7 +170,7 @@ var selectStage_width = winWidth;
 var gameScene_BackgroundColor = '#fcc8f0';
 
 //ステージを描画する範囲(以下はステージ描画用領域として、全体の7割のサイズの正方形で確保)
-var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.7;
+var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.5;
 var stageRangeHeight = stageRangeWidth;
 
 //パネルの画像サイズ
@@ -193,7 +193,7 @@ var outStageWidth = (winWidth - stageRangeWidth) / 2;
 //ホームへ戻るボタンの設定
 var backHomeScene_text = 'ホームへ';
 var backHomeScene_textAlign = 'center';
-var backHomeScene_fontSize = title_fontSize * 0.45;
+var backHomeScene_fontSize = title_fontSize * 0.3;
 var backHomeScene_font = backHomeScene_fontSize + 'px sans-serif';
 var backHomeScene_width = stageRangeWidth / 3;
 var backHomeScene_posX = outStageWidth;
@@ -324,9 +324,11 @@ var moveGunma = function (x, y, moveX, moveY) {
     if (stageAry[y + moveY][x + moveX] == stageRockPanel) {
         if (stageAry[y + moveY * 2][x + moveX * 2] == stageHolePanel) {
             //岩の移動先が穴なら、穴のパネルを床に変更する
+            stageAry[y + moveY][x + moveX] = stageFloorPanel;//穴がうまった画像も後で用意
             stageAry[y + moveY * 2][x + moveX * 2] = stageFloorPanel;
         } else {
             //岩を次のパネルに移動させる
+            stageAry[y + moveY][x + moveX] = stageFloorPanel;
             stageAry[y + moveY * 2][x + moveX * 2] = stageRockPanel;
         }
         updateStage(x + moveX * 2, y + moveY * 2);
@@ -334,7 +336,6 @@ var moveGunma = function (x, y, moveX, moveY) {
     } else if (stageAry[y + moveY][x + moveX] == stageHolePanel) {
         gunma.frame = 2;
     }
-    stageAry[y + moveY][x + moveX] = stageFloorPanel;
     updateStage(x + moveX, y + moveY);
     return true;
 }
