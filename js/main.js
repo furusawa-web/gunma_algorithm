@@ -548,13 +548,17 @@ window.onload = function () {
             scene.backgroundColor = selectScene_backgroundColor;
 
             //タイトルラベルの設定
-            var title = new Label(title_text);
-            title.textAlign = title_textAlign;
-            title.color = title_color;
-            title.width = title_width;
+            var title = new Sprite(title_width, );
+            title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
-            title.font = title_font;
+            //var title = new Label(title_text);
+            //title.textAlign = title_textAlign;
+            //title.color = title_color;
+            //title.width = title_width;
+            //title.x = title_posX;
+            //title.y = title_posY;
+            //title.font = title_font;
             scene.addChild(title);
 
             //サブタイトルラベルの設定
@@ -756,13 +760,17 @@ window.onload = function () {
                 }
             });
             //タイトルラベルの設定
-            var title = new Label(title_text);
-            title.textAlign = title_textAlign;
-            title.color = title_color;
-            title.width = title_width;
+            var title = new Sprite(title_width, );
+            title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
-            title.font = title_font;
+            //var title = new Label(title_text);
+            //title.textAlign = title_textAlign;
+            //title.color = title_color;
+            //title.width = title_width;
+            //title.x = title_posX;
+            //title.y = title_posY;
+            //title.font = title_font;
             scene.addChild(title);
 
             //サブタイトルラベルの設定
@@ -986,13 +994,17 @@ window.onload = function () {
             var scene = new Scene();
             scene.backgroundColor = gameoverScene_backgroundColor;
             //タイトルラベルの設定
-            var title = new Label(title_text);
-            title.textAlign = title_textAlign;
-            title.color = title_color;
-            title.width = title_width;
+            var title = new Sprite(title_width, );
+            title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
-            title.font = title_font;
+            //var title = new Label(title_text);
+            //title.textAlign = title_textAlign;
+            //title.color = title_color;
+            //title.width = title_width;
+            //title.x = title_posX;
+            //title.y = title_posY;
+            //title.font = title_font;
             scene.addChild(title);
 
             //サブタイトルラベルの設定
