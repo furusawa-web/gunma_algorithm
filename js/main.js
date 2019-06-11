@@ -78,6 +78,7 @@ var title_font = title_fontSize + 'px sans-serif';
 var title_width = title_fontSize * title_text.length;
 var title_sizeX = 280;
 var title_sizeY = 111;
+var title_scale = title_width / title_sizeY;
 var title_posX = winWidth / 2 - title_sizeX / 2;
 var title_posY = paddingSpace;
 
@@ -88,7 +89,7 @@ var subTitle_fontSize = title_fontSize * 0.5;
 var subTitle_font = subTitle_fontSize + 'px sans-serif';
 var subTitle_width = subTitle_fontSize * subTitle_text.length;
 var subTitle_posX = winWidth / 2 - subTitle_width / 2;
-var subTitle_posY = title_posY + title_sizeY + paddingSpace;
+var subTitle_posY = title_posY + title_sizeY * title_scale + paddingSpace;
 
 
 //許可番号の設定
@@ -433,6 +434,7 @@ window.onload = function () {
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
+            title.scale(title_scale, title_scale);
             //var title = new Label(title_text);
             //title.textAlign = title_textAlign;
             //title.color = title_color;
@@ -552,6 +554,7 @@ window.onload = function () {
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
+            title.scale(title_scale, title_scale);
             //var title = new Label(title_text);
             //title.textAlign = title_textAlign;
             //title.color = title_color;
@@ -764,6 +767,7 @@ window.onload = function () {
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
+            title.scale(title_scale, title_scale);
             //var title = new Label(title_text);
             //title.textAlign = title_textAlign;
             //title.color = title_color;
@@ -998,6 +1002,7 @@ window.onload = function () {
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
+            title.scale(title_scale, title_scale);
             //var title = new Label(title_text);
             //title.textAlign = title_textAlign;
             //title.color = title_color;
