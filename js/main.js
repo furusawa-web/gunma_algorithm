@@ -429,7 +429,7 @@ window.onload = function () {
             //タイトルラベルの設定
 
 
-            var title = new Sprite(title_width, );
+            var title = new Sprite(title_sizeX, title_sizeY);
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
@@ -548,7 +548,7 @@ window.onload = function () {
             scene.backgroundColor = selectScene_backgroundColor;
 
             //タイトルラベルの設定
-            var title = new Sprite(title_width, );
+            var title = new Sprite(title_sizeX, title_sizeY);
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
@@ -760,7 +760,7 @@ window.onload = function () {
                 }
             });
             //タイトルラベルの設定
-            var title = new Sprite(title_width, );
+            var title = new Sprite(title_sizeX, title_sizeY);
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
@@ -994,7 +994,7 @@ window.onload = function () {
             var scene = new Scene();
             scene.backgroundColor = gameoverScene_backgroundColor;
             //タイトルラベルの設定
-            var title = new Sprite(title_width, );
+            var title = new Sprite(title_sizeX, title_sizeY);
             title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
