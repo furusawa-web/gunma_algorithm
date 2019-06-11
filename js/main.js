@@ -76,8 +76,8 @@ var title_color = '#ffffff';
 var title_fontSize = Math.min(winWidth_Use, winHeight) / title_text.length * 0.8;
 var title_font = title_fontSize + 'px sans-serif';
 var title_width = title_fontSize * title_text.length;
-var title_sizeX = 236;
-var title_sizeY = 48;
+var title_sizeX = 280;
+var title_sizeY = 111;
 var title_posX = winWidth / 2 - title_sizeX / 2;
 var title_posY = paddingSpace;
 
@@ -127,7 +127,7 @@ var staffLabelRole_posX = winWidth / 2 - staffLabelRole_width;
 var staffLabelRole_posY = staffLabel_posY + staffLabel_fontSize + paddingSpace;
 
 //staff名前の設定
-var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Takahito Nara<br>XXXX XXXXXXX<br>Kengo Wada';
+var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Takahito Nara<br>Tsuruga <br>Kengo Wada';
 var staffLabelName_textAlign = 'left';
 var staffLabelName_fontSize = title_fontSize * 0.4;
 var staffLabelName_font = staffLabelName_fontSize + 'px sans-serif';
