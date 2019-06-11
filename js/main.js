@@ -1,11 +1,10 @@
 // encode 'UTF-8'
 //使用したフレームワーク : enchant.js
 
-//ToDo
-//ボタンカーソル対応
-//タイトルをテキストから画像に変更
-//画像自体の差し替え
-//文字化け(多分json)
+//ToDo(20190117編集終了時点(30min))
+//タイトルをテキストから画像に変更(最後でOK)
+//画像自体の差し替え(画像上がり待ち)
+//文字化け(多分json)(未確認)
 //その他調整
 
 //ステージ上各パネルの値設定------------------------------------
@@ -77,7 +76,9 @@ var title_color = '#ffffff';
 var title_fontSize = Math.min(winWidth_Use, winHeight) / title_text.length * 0.8;
 var title_font = title_fontSize + 'px sans-serif';
 var title_width = title_fontSize * title_text.length;
-var title_posX = winWidth / 2 - title_width / 2;
+var title_sizeX = 236;
+var title_sizeY = 48;
+var title_posX = winWidth / 2 - title_sizeX / 2;
 var title_posY = paddingSpace;
 
 //サブタイトルラベルの設定
@@ -87,7 +88,7 @@ var subTitle_fontSize = title_fontSize * 0.5;
 var subTitle_font = subTitle_fontSize + 'px sans-serif';
 var subTitle_width = subTitle_fontSize * subTitle_text.length;
 var subTitle_posX = winWidth / 2 - subTitle_width / 2;
-var subTitle_posY = title_posY + title_fontSize + paddingSpace;
+var subTitle_posY = title_posY + title_sizeY + paddingSpace;
 
 
 //許可番号の設定
@@ -406,7 +407,7 @@ window.onload = function () {
     //fpsは適当な値に設定
     game_.fps = 24;
     //事前読み込み（以下で表示する画像は必ずここに記述）
-    game_.preload('./img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
+    game_.preload('./img/title.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
@@ -426,13 +427,19 @@ window.onload = function () {
             scene.addChild(startImage);
 
             //タイトルラベルの設定
-            var title = new Label(title_text);
-            title.textAlign = title_textAlign;
-            title.color = title_color;
-            title.width = title_width;
+
+
+            var title = new Sprite(title_width, );
+            title.image = game_.assets['./img/title.png'];
             title.x = title_posX;
             title.y = title_posY;
-            title.font = title_font;
+            //var title = new Label(title_text);
+            //title.textAlign = title_textAlign;
+            //title.color = title_color;
+            //title.width = title_width;
+            //title.x = title_posX;
+            //title.y = title_posY;
+            //title.font = title_font;
             scene.addChild(title);
 
             //サブタイトルラベルの設定
