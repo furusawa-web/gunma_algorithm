@@ -164,7 +164,7 @@ var selectStage_width = winWidth;
 var gameScene_BackgroundColor = '#fcc8f0';
 
 //ステージを描画する範囲(以下はステージ描画用領域として、全体の7割のサイズの正方形で確保)
-var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.5;
+var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.7;
 var stageRangeHeight = stageRangeWidth;
 
 //パネルの画像サイズ
@@ -692,12 +692,15 @@ window.onload = function () {
                         goFlg = false;
                     } else {
                         if (gunma.frame == 2) {
-                            //ぐんまちゃんの移動
-                            gunma.x = startX;
-                            gunmaIndexX = startIndexX;
-                            gunma.y = startY;
-                            gunmaIndexY = startIndexY;
-                            gunma.frame = 0;
+
+                            if (frameCount >= 5) {
+                                //ぐんまちゃんの移動
+                                gunma.x = startX;
+                                gunmaIndexX = startIndexX;
+                                gunma.y = startY;
+                                gunmaIndexY = startIndexY;
+                                gunma.frame = 0;
+                            }
                         } else {
                             var i = 0;
                             var index = comList[i];//フローチャート先頭を取得
@@ -751,9 +754,10 @@ window.onload = function () {
                             comArrow.text = comArrow.text.slice(5);
                             //フローチャート用配列の先頭削除
                             comList.shift();
-                            //ステップごとの実行に必要
-                            sleep(500);
+
                         }
+                        //ステップごとの実行に必要
+                        sleep(500);
                     }
                 }
             });
