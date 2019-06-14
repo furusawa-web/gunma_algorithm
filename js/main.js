@@ -53,7 +53,6 @@ var selectName = [
     "(ふつう) 第3話 「赤城山で桜を見よう」",
     "(むずかしい) 第1話 「群馬で一番高いビルを目指そう」"
 ];
-//todo: selectNameをキーにファイル読み込みを行う関数を用意する
 //---------------------------------
 
 
@@ -267,8 +266,8 @@ var resultTips_font = resultTips_fontSize + 'px sans-serif';
 var tips_text = "";
 var tips_textAlign = 'center';
 var tips_color = '#000';
-var tips_width = winWidth * 0.8;
-var tips_x = winWidth / 2 - tips_width / 2;
+var tips_width = stageRangeWidth;
+var tips_x = (winWidth - tips_width) / 2;
 var tips_y = resultTips_fontSize + resultTips_y + paddingSpace * 2;
 var tips_fontSize = title_fontSize * 0.5;
 var tips_font = tips_fontSize + 'px sans-serif';
