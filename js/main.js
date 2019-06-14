@@ -1,15 +1,13 @@
 // encode 'UTF-8'
 //使用したフレームワーク : enchant.js
 
-//ToDo(20190117編集終了時点(30min))
-//タイトルをテキストから画像に変更(最後でOK)
-//画像自体の差し替え(画像上がり待ち)
-//文字化け(多分json)(未確認)
+//ToDo(20190614編集終了時点(30min))
 //その他調整
 
 //ステージ上各パネルの値設定------------------------------------
 var stageStartPanel = 4;
-var stageGoalPanel = 5;//（5以上のパネルはすべてゴール）
+var stageHoleAndRockPanel = 5;
+var stageGoalPanel = 6;//（6以上のパネルはすべてゴール）
 var stageRockPanel = 2;
 var stageHolePanel = 1;
 var stageWallPanel = 3;
@@ -324,8 +322,8 @@ var moveGunma = function (x, y, moveX, moveY) {
     if (stageAry[y + moveY][x + moveX] == stageRockPanel) {
         if (stageAry[y + moveY * 2][x + moveX * 2] == stageHolePanel) {
             //岩の移動先が穴なら、穴のパネルを床に変更する
-            stageAry[y + moveY][x + moveX] = stageFloorPanel;//穴がうまった画像も後で用意
-            stageAry[y + moveY * 2][x + moveX * 2] = stageFloorPanel;
+            stageAry[y + moveY][x + moveX] = stageFloorPanel;
+            stageAry[y + moveY * 2][x + moveX * 2] = stageHoleAndRockPanel;
         } else {
             //岩を次のパネルに移動させる
             stageAry[y + moveY][x + moveX] = stageFloorPanel;
