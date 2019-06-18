@@ -754,6 +754,7 @@ window.onload = function () {
                             //フローチャート表示の先頭を5文字削除
                             //"<br>"の四文字と矢印の一文字で計五文字
                             comArrow.text = comArrow.text.slice(5);
+                            comArrow.height = stageHeight * stagePanelHeight;
                             //フローチャート用配列の先頭削除
                             comList.shift();
 
@@ -882,7 +883,8 @@ window.onload = function () {
             comArrow.x = comArrow_x;
             comArrow.y = comArrow_y;
             comArrow.width = comArrow_width;
-            comArrow.color = comArrow_color;
+            comArrow.height = stageHeight * stagePanelHeight;
+            //comArrow.color = comArrow_color;
             scene.addChild(comArrow);
 
 
@@ -946,6 +948,7 @@ window.onload = function () {
                         var index = Math.round((this.x - outStageWidth) / arrowPanelWidth);
                         var indexChar = ['←', '↑', '→', '↓'];
                         comArrow.text = comArrow.text + indexChar[index] + '<br>';
+                        comArrow.height = stageHeight * stagePanelHeight;
                         comList.push(index);
                     }
                 }, false);
