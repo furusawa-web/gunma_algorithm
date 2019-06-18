@@ -95,40 +95,6 @@ var licLabel_width = licLabel_fontSize * licLabel_text.length;
 var licLabel_posX = winWidth / 2 - licLabel_width / 2;
 var licLabel_posY = title_posY + title_sizeY * (title_scale + 0.1) + paddingSpace;//subTitle_posY + subTitle_fontSize + paddingSpace;
 
-//スタート画像の設定
-//画像サイズ
-var startImage_sizeX = 236;
-var startImage_sizeY = 48;
-//画像描画位置
-var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
-var startImage_posY = licLabel_posY + licLabel_fontSize + paddingSpace;
-
-//staffの設定
-var staffLabel_text = 'S T A F F';
-var staffLabel_textAlign = 'center';
-var staffLabel_fontSize = title_fontSize * 0.5;
-var staffLabel_font = staffLabel_fontSize + 'px sans-serif';
-var staffLabel_width = staffLabel_fontSize * staffLabel_text.length / 2;
-var staffLabel_posX = winWidth / 2 - staffLabel_width / 2;
-var staffLabel_posY = startImage_posY + startImage_sizeY + paddingSpace;
-
-//staff役職の設定
-var staffLabelRole_text = 'Director  <br>Programmer  <br>Programmer  <br>Designer  <br>Tester  ';
-var staffLabelRole_textAlign = 'right';
-var staffLabelRole_fontSize = title_fontSize * 0.4;
-var staffLabelRole_font = staffLabelRole_fontSize + 'px sans-serif';
-var staffLabelRole_width = staffLabelRole_fontSize * 12;
-var staffLabelRole_posX = winWidth / 2 - staffLabelRole_width;
-var staffLabelRole_posY = staffLabel_posY + staffLabel_fontSize + paddingSpace;
-
-//staff名前の設定
-var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Takahito Nara<br>Tsuruga <br>Kengo Wada';
-var staffLabelName_textAlign = 'left';
-var staffLabelName_fontSize = title_fontSize * 0.4;
-var staffLabelName_font = staffLabelName_fontSize + 'px sans-serif';
-var staffLabelName_width = staffLabelName_fontSize * 20;
-var staffLabelName_posX = winWidth / 2;
-var staffLabelName_posY = staffLabelRole_posY;
 
 //thunderbird.incの設定
 var creditName_text = 'Produced by Thunderbird, inc.';
@@ -147,6 +113,41 @@ var contactLabel_font = contactLabel_fontSize + 'px sans-serif';
 var contactLabel_width = contactLabel_fontSize * contactLabel_text.length;
 var contactLabel_posX = winWidth / 2 - contactLabel_width / 2;
 var contactLabel_posY = creditName_posY - contactLabel_fontSize - paddingSpace;
+
+//staff役職の設定
+var staffLabelRole_text = 'Director  <br>Programmer  <br>Programmer  <br>Designer  <br>Tester  ';
+var staffLabelRole_textAlign = 'right';
+var staffLabelRole_fontSize = title_fontSize * 0.4;
+var staffLabelRole_font = staffLabelRole_fontSize + 'px sans-serif';
+var staffLabelRole_width = staffLabelRole_fontSize * 12;
+var staffLabelRole_posX = winWidth / 2 - staffLabelRole_width;
+var staffLabelRole_posY = contactLabel_posY - staffLabelRole_fontSize * 5 - paddingSpace * 5;
+
+//staff名前の設定
+var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Takahito Nara<br>Tsuruga <br>Kengo Wada';
+var staffLabelName_textAlign = 'left';
+var staffLabelName_fontSize = title_fontSize * 0.4;
+var staffLabelName_font = staffLabelName_fontSize + 'px sans-serif';
+var staffLabelName_width = staffLabelName_fontSize * 20;
+var staffLabelName_posX = winWidth / 2;
+var staffLabelName_posY = staffLabelRole_posY;
+
+//staffの設定
+var staffLabel_text = 'S T A F F';
+var staffLabel_textAlign = 'center';
+var staffLabel_fontSize = title_fontSize * 0.5;
+var staffLabel_font = staffLabel_fontSize + 'px sans-serif';
+var staffLabel_width = staffLabel_fontSize * staffLabel_text.length / 2;
+var staffLabel_posX = winWidth / 2 - staffLabel_width / 2;
+var staffLabel_posY = staffLabelRole_posY - staffLabel_fontSize - paddingSpace;
+
+//スタート画像の設定
+//画像サイズ
+var startImage_sizeX = 236;
+var startImage_sizeY = 48;
+//画像描画位置
+var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
+var startImage_posY = Math.abs((licLabel_posY + licLabel_fontSize) - (staffLabel_posY)) / 2 + startImage_sizeY;//licLabel_posY + licLabel_fontSize + paddingSpace * 3;
 
 
 //ステージ選択画面の設定
@@ -225,6 +226,7 @@ var outStageHeight = moveCountLabel_y + paddingSpace * 1.5;
 //フローチャート表示用ラベルの設定
 var comArrow_fontSize = title_fontSize * 0.6;
 var comArrow_font = comArrow_fontSize + 'px sans-serif';
+var comArrow_color = '#ffffff';
 var comArrow_x = outStageWidth + stageRangeWidth + paddingSpace;
 var comArrow_y = outStageHeight;
 var comArrow_width = comArrow_fontSize;
@@ -457,6 +459,30 @@ window.onload = function () {
             licLabel.font = licLabel_font;
             scene.addChild(licLabel);
 
+
+
+            //thunderbird.incの設定
+            var creditName = new Label(creditName_text);
+            creditName.textAlign = creditName_textAlign;
+            creditName.width = creditName_width;
+            creditName.x = creditName_posX;
+            creditName.y = creditName_posY;
+            creditName.font = creditName_font;
+            scene.addChild(creditName);
+
+            //お問い合わせの設定
+            var contactLabel = new Label(contactLabel_text);
+            contactLabel.textAlign = contactLabel_textAlign;
+            contactLabel.width = contactLabel_width;
+            contactLabel.x = contactLabel_posX;
+            contactLabel.y = contactLabel_posY;
+            contactLabel.font = contactLabel_font;
+            scene.addChild(contactLabel);
+
+            //お問い合わせボタンがタッチ（クリック）されたときのイベント
+            contactLabel.addEventListener(Event.TOUCH_START, function (e) {
+                window.open('https://www.thunderbird.co.jp/', '_blank');
+            });
             //staffの設定
             var staffLabel = new Label(staffLabel_text);
             staffLabel.textAlign = staffLabel_textAlign;
@@ -483,30 +509,6 @@ window.onload = function () {
             staffLabelName.y = staffLabelName_posY;
             staffLabelName.font = staffLabelName_font;
             scene.addChild(staffLabelName);
-
-
-            //thunderbird.incの設定
-            var creditName = new Label(creditName_text);
-            creditName.textAlign = creditName_textAlign;
-            creditName.width = creditName_width;
-            creditName.x = creditName_posX;
-            creditName.y = creditName_posY;
-            creditName.font = creditName_font;
-            scene.addChild(creditName);
-
-            //お問い合わせの設定
-            var contactLabel = new Label(contactLabel_text);
-            contactLabel.textAlign = contactLabel_textAlign;
-            contactLabel.width = contactLabel_width;
-            contactLabel.x = contactLabel_posX;
-            contactLabel.y = contactLabel_posY;
-            contactLabel.font = contactLabel_font;
-            scene.addChild(contactLabel);
-
-            //お問い合わせボタンがタッチ（クリック）されたときのイベント
-            contactLabel.addEventListener(Event.TOUCH_START, function (e) {
-                window.open('https://www.thunderbird.co.jp/', '_blank');
-            });
 
             scene.addEventListener(Event.ENTER_FRAME, function () {
                 var mouseOverFlg = false;
@@ -880,6 +882,7 @@ window.onload = function () {
             comArrow.x = comArrow_x;
             comArrow.y = comArrow_y;
             comArrow.width = comArrow_width;
+            comArrow.color = comArrow_color;
             scene.addChild(comArrow);
 
 
