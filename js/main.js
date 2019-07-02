@@ -75,7 +75,7 @@ var title_sizeX = 280;
 var title_sizeY = 111;
 var title_scale = title_width / title_sizeX * 0.5;
 var title_posX = winWidth / 2 - title_sizeX / 2;
-var title_posY = paddingSpace * 0.2;
+var title_posY = paddingSpace - (1 - title_scale) * title_sizeY / 2;
 
 //サブタイトルラベルの設定
 //var subTitle_text = '- アルゴリズムをまなぼう -';
@@ -94,7 +94,7 @@ var licLabel_fontSize = title_fontSize * 0.3;
 var licLabel_font = licLabel_fontSize + 'px sans-serif';
 var licLabel_width = licLabel_fontSize * licLabel_text.length;
 var licLabel_posX = winWidth / 2 - licLabel_width / 2;
-var licLabel_posY = title_posY + title_sizeY * (title_scale + 0.1) + paddingSpace;//subTitle_posY + subTitle_fontSize + paddingSpace;
+var licLabel_posY = title_posY + title_sizeY * title_scale + paddingSpace;//subTitle_posY + subTitle_fontSize + paddingSpace;
 
 
 //thunderbird.incの設定
