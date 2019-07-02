@@ -13,6 +13,7 @@ var stageFloorPanel = 0;
 
 var mX;
 var mY;
+var nowStage = 0;
 
 var stagePanel = new Array(); //ステージ描画用
 var imageFileName = './img/stagePanel.png';
@@ -143,21 +144,30 @@ var staffLabel_posY = staffLabelRole_posY - staffLabel_fontSize - paddingSpace;
 
 //スタート画像の設定
 //画像サイズ
-var startImage_sizeX = 236;
-var startImage_sizeY = 48;
+var startImage_sizeX = 300;
+var startImage_sizeY = 106;
 //画像描画位置
 var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
 var startImage_posY = Math.abs((licLabel_posY + licLabel_fontSize) - (staffLabel_posY)) / 2 + startImage_sizeY;//licLabel_posY + licLabel_fontSize + paddingSpace * 3;
 
 
 //ステージ選択画面の設定
+
 var selectScene_backgroundColor = '#fcc800';
 var selectStage_textAlign = 'center';
 var selectStage_color = '#ffffff';
+
+var selectStage_sizeX = 359;
+var selectStage_sizeY = 80;
+
 var selectStage_fontSize = title_fontSize * 0.5;
-var selectStage_lineSpacing = selectStage_fontSize * 2.5; //行間設定用：（フォントサイズ+行間サイズで指定）
-var selectStage_font = selectStage_fontSize + 'px sans-serif';
+var selectStage_lineSpacing = 0;//paddingSpace;//selectStage_fontSize * 2.5; //行間設定用：（フォントサイズ+行間サイズで指定）
 var selectStage_marginTop = licLabel_posY + licLabel_fontSize + paddingSpace;//上の余白設定
+
+var selectStage_range = contactLabel_posX - (licLabel_posY + licLabel_fontSize + selectStage_marginTop);
+var selectStage_scale = (selectStage_range / 7 - selectStage_lineSpacing) / selectStage_sizeY;
+
+var selectStage_font = selectStage_fontSize + 'px sans-serif';
 var selectStage_width = winWidth;
 
 
@@ -235,22 +245,26 @@ var comArrow_width = comArrow_fontSize;
 var gameoverScene_backgroundColor = '#fcc8f0';
 
 //クリア画像の設定
-var gameoverImage_width = 267;
-var gameoverImage_height = 48;
+var gameoverImage_width = 300;
+var gameoverImage_height = 100;
 var gameoverImage_x = winWidth / 2 - gameoverImage_width / 2;
 var gameoverImage_y = moveCountLabel_y + paddingSpace * 1.5;
 
 //結果基準配列
 var resultLabel_index = [20, 10, 0];
 //結果表示ラベルの設定
+var resultLabel_sizeX = 348;
+var resultLabel_sizeY = 96;
+var resultLabel_scale = stageRangeWidth / resultLabel_sizeX;
 var resultLabel_text = ["★☆☆", "★★☆", "★★★"];
 var resultLabel_textAlign = 'center';
 var resultLabel_color = '#ffd700';
 var resultLabel_width = winWidth;
-var resultLabel_x = 0;
+var resultLabel_x = winWidth / 2 - resultLabel_sizeX / 2;//0;
 var resultLabel_y = gameoverImage_y + gameoverImage_height + paddingSpace * 1.5;
-var resultLabel_fontSize = title_fontSize * 1.2;
+var resultLabel_fontSize = resultLabel_sizeY * resultLabel_scale;//title_fontSize * 1.2;
 var resultLabel_font = resultLabel_fontSize + 'px sans-serif';
+
 
 var resultTips_text = [
     "グッド！もう少し近道はないかな？がんばろう！<br>",
@@ -267,6 +281,11 @@ var resultTips_font = resultTips_fontSize + 'px sans-serif';
 
 var tips_text = "";
 var tips_textAlign = 'center';
+
+var tips_sizeX = [800, 615, 785, 638, 785, 673, 673];
+var tips_sizeY = [211, 229, 188, 263, 262, 225, 225];
+// 性質上直接記述
+
 var tips_color = '#000';
 var tips_width = stageRangeWidth;
 var tips_x = (winWidth - tips_width) / 2;
@@ -405,7 +424,7 @@ window.onload = function () {
     //fpsは適当な値に設定
     game_.fps = 24;
     //事前読み込み（以下で表示する画像は必ずここに記述）
-    game_.preload('./img/title.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png');
+    game_.preload('./img/title.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
@@ -585,20 +604,26 @@ window.onload = function () {
             for (var index = 0; index < 7; index++) {
 
                 //ステージ選択ラベルの設定
-                selectStage[index] = new Label(selectName[index]);
-                selectStage[index].textAlign = selectStage_textAlign;
-                selectStage[index].color = selectStage_color;
-                selectStage[index].y = selectStage_marginTop + selectStage_lineSpacing * index;
-                selectStage[index].font = selectStage_font;
-                selectStage[index].width = selectStage_width;
-                selectStage[index].x = winWidth / 2 - selectStage[index].width / 2;
+                selectStage[index] = new Sprite(selectStage_sizeX, selectStage_sizeY);
+                selectStage[index].image = game_.assets['./img/selectStage' + index + '.png'];
+                selectStage[index].scale(selectStage_scale, selectStage_scale);
+                selectStage[index].x = winWidth / 2 - selectStage_sizeX / 2;
+                selectStage[index].y = selectStage_marginTop + (selectStage_sizeY * selectStage_scale + selectStage_lineSpacing) * index;
+                //selectStage[index] = new Label(selectName[index]);
+                //selectStage[index].textAlign = selectStage_textAlign;
+                //selectStage[index].color = selectStage_color;
+                //selectStage[index].y = selectStage_marginTop + selectStage_lineSpacing * index;
+                //selectStage[index].font = selectStage_font;
+                //selectStage[index].width = selectStage_width;
+                //selectStage[index].x = winWidth / 2 - selectStage[index].width / 2;
                 scene.addChild(selectStage[index]);
 
                 selectStage[index].addEventListener('touchstart', function () {
                     //ここにindexによってファイルを読み込んで、配列を更新する処理を追加する
                     //ただし、indexの取得が困難なので、this.yを利用して、indexを逆算する必要がある
-                    var index = Math.round((this.y - selectStage_marginTop) / selectStage_lineSpacing);
+                    var index = Math.round((this.y - selectStage_marginTop) / (selectStage_sizeY * selectStage_scale + selectStage_lineSpacing));
                     getStageAry("./stage/stage" + index + ".json");
+                    nowStage = index;
                     game_.replaceScene(createGameScene());
                 }, false);
 
@@ -1048,13 +1073,19 @@ window.onload = function () {
             var resultIndex;
             for (resultIndex = 0; resultScore < resultLabel_index[resultIndex]; resultIndex++);
 
-            var label = new Label(resultLabel_text[resultIndex]);
-            label.textAlign = resultLabel_textAlign;
-            label.color = resultLabel_color;
-            label.width = resultLabel_width;
+            //var label = new Label(resultLabel_text[resultIndex]);
+            var label = new Sprite(resultLabel_sizeX, resultLabel_sizeY);
+            resultIndex++;
+
+            label.image = game_.assets['./img/star' + resultIndex + '.png'];
+            //label.textAlign = resultLabel_textAlign;
+            //label.color = resultLabel_color;
+            //label.width = resultLabel_width;
             label.x = resultLabel_x;
             label.y = resultLabel_y;
-            label.font = resultLabel_font;
+
+            label.scale(resultLabel_scale, resultLabel_scale);
+            //label.font = resultLabel_font;
             scene.addChild(label);
 
 
@@ -1097,12 +1128,17 @@ window.onload = function () {
             });
 
             //tipsの設定
-            var tips = new Label(tips_text);
-            tips.textAlign = tips_textAlign;
-            tips.width = tips_width;
-            tips.x = tips_x;
-            tips.y = tips_y;
-            tips.font = tips_font;
+            var tips = new Sprite(tips_sizeX[nowStage], tips_sizeY[nowStage]);
+            tips.image = game_.assets['./img/tips' + nowStage + '.png'];
+            tips.scale(winWidth_Use / tips_sizeX[nowStage], winWidth_Use / tips_sizeX[nowStage]);
+            tips.x = winWidth / 2 - tips_sizeX[nowStage] / 2;
+            tips.y = resultTips_fontSize + resultTips_y + paddingSpace;//outStageHeight + stagePanelHeight * stageHeight + arrowYpadding;
+            //new Label(tips_text);
+            //tips.textAlign = tips_textAlign;
+            //tips.width = tips_width;
+            //tips.x = tips_x;
+            //tips.y = tips_y;
+            //tips.font = tips_font;
             scene.addChild(tips);
 
 
