@@ -116,16 +116,16 @@ var contactLabel_posX = winWidth / 2 - contactLabel_width / 2;
 var contactLabel_posY = creditName_posY - contactLabel_fontSize - paddingSpace;
 
 //staff役職の設定
-var staffLabelRole_text = 'Director  <br>Programmer  <br>Programmer  <br>Designer  <br>Tester  ';
+var staffLabelRole_text = 'Director  <br>Programmer  <br>Designer  <br>Tester  ';
 var staffLabelRole_textAlign = 'right';
 var staffLabelRole_fontSize = title_fontSize * 0.4;
 var staffLabelRole_font = staffLabelRole_fontSize + 'px sans-serif';
 var staffLabelRole_width = staffLabelRole_fontSize * 12;
 var staffLabelRole_posX = winWidth / 2 - staffLabelRole_width;
-var staffLabelRole_posY = contactLabel_posY - staffLabelRole_fontSize * 5 - paddingSpace * 5;
+var staffLabelRole_posY = contactLabel_posY - staffLabelRole_fontSize * 4 - paddingSpace * 5;
 
 //staff名前の設定
-var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Takahito Nara<br>Tsuruga <br>Kengo Wada';
+var staffLabelName_text = 'Yohei Yamane<br>Ryuya Furusawa<br>Tsuruga <br>Kengo Wada';
 var staffLabelName_textAlign = 'left';
 var staffLabelName_fontSize = title_fontSize * 0.4;
 var staffLabelName_font = staffLabelName_fontSize + 'px sans-serif';
@@ -164,7 +164,7 @@ var selectStage_fontSize = title_fontSize * 0.5;
 var selectStage_lineSpacing = 0;//paddingSpace;//selectStage_fontSize * 2.5; //行間設定用：（フォントサイズ+行間サイズで指定）
 var selectStage_marginTop = licLabel_posY + licLabel_fontSize + paddingSpace;//上の余白設定
 
-var selectStage_range = contactLabel_posX - (licLabel_posY + licLabel_fontSize + selectStage_marginTop);
+var selectStage_range = contactLabel_posY - (licLabel_posY + licLabel_fontSize + selectStage_marginTop);
 var selectStage_scale = (selectStage_range / 7 - selectStage_lineSpacing) / selectStage_sizeY;
 
 var selectStage_font = selectStage_fontSize + 'px sans-serif';
