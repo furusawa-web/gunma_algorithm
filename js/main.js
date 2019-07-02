@@ -62,7 +62,7 @@ var selectName = [
 //スタートシーンの設定
 var startScene_backgroundColor = '#fcc800';//スタートシーンの背景色
 
-var paddingSpace = winHeight / 50;
+var paddingSpace = winHeight / 40;
 
 //タイトルラベルの設定
 var title_text = 'ぐんまちゃんのぐんま旅';
@@ -111,7 +111,7 @@ var contactLabel_text = 'お問い合わせ';
 var contactLabel_textAlign = 'center';
 var contactLabel_fontSize = title_fontSize * 0.6;
 var contactLabel_font = contactLabel_fontSize + 'px sans-serif';
-var contactLabel_width = contactLabel_fontSize * contactLabel_text.length;
+var contactLabel_width = winWidth_Use;
 var contactLabel_posX = winWidth / 2 - contactLabel_width / 2;
 var contactLabel_posY = creditName_posY - contactLabel_fontSize - paddingSpace;
 
@@ -149,6 +149,17 @@ var startImage_sizeY = 106;
 //画像描画位置
 var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
 var startImage_posY = Math.abs((licLabel_posY + licLabel_fontSize) - (staffLabel_posY)) / 2 + startImage_sizeY;//licLabel_posY + licLabel_fontSize + paddingSpace * 3;
+
+
+//ルール確認画面
+var selectScene_backgroundColor = '#fcc800';
+
+var rule_sizeX = 990;
+var rule_sizeY = 1171;
+var rule_scale = winWidth_Use / rule_sizeX;
+var rule_posX = (winWidth / 2 - rule_sizeX / 2);
+var rule_posY = licLabel_fontSize + licLabel_posY + paddingSpace - (1 - rule_scale) * rule_sizeY / 2;
+
 
 
 //ステージ選択画面の設定
@@ -272,7 +283,7 @@ var resultLabel_textAlign = 'center';
 var resultLabel_color = '#ffd700';
 var resultLabel_width = winWidth;
 var resultLabel_x = winWidth / 2 - resultLabel_sizeX / 2;//0;
-var resultLabel_y = gameoverImage_y + gameoverImage_height + paddingSpace * 1.5;
+var resultLabel_y = gameoverImage_y + gameoverImage_height + paddingSpace * 1.5 - (1 - resultLabel_scale) * resultLabel_sizeY / 2;
 var resultLabel_fontSize = resultLabel_sizeY * resultLabel_scale;//title_fontSize * 1.2;
 var resultLabel_font = resultLabel_fontSize + 'px sans-serif';
 
@@ -300,7 +311,7 @@ var tips_sizeY = [211, 229, 188, 263, 262, 225, 225];
 var tips_color = '#000';
 var tips_width = stageRangeWidth;
 var tips_x = (winWidth - tips_width) / 2;
-var tips_y = resultTips_fontSize + resultTips_y + paddingSpace * 2;
+var tips_y = resultTips_y + paddingSpace;
 var tips_fontSize = title_fontSize * 0.5;
 var tips_font = tips_fontSize + 'px sans-serif';
 
@@ -434,7 +445,7 @@ window.onload = function () {
     //fpsは適当な値に設定
     game_.fps = 24;
     //事前読み込み（以下で表示する画像は必ずここに記述）
-    game_.preload('./img/title.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png', './img/Home.png', './img/Retry.png', './img/Select.png');
+    game_.preload('./img/title.png', './img/rule.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png', './img/Home.png', './img/Retry.png', './img/Select.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
@@ -567,6 +578,8 @@ window.onload = function () {
             return scene;
         };
 
+
+
         /**
          * select scene
          */
@@ -634,7 +647,7 @@ window.onload = function () {
                     var index = Math.round((this.y - selectStage_marginTop) / (selectStage_sizeY * selectStage_scale + selectStage_lineSpacing));
                     getStageAry("./stage/stage" + index + ".json");
                     nowStage = index;
-                    game_.replaceScene(createGameScene());
+                    game_.replaceScene(createRuleScene());
                 }, false);
 
             }
@@ -675,6 +688,96 @@ window.onload = function () {
             return scene;
         };
 
+        //ルールシーン
+        var createRuleScene = function () {
+            //シーン全体の設定
+            var scene = new Scene();
+            scene.backgroundColor = selectScene_backgroundColor;
+
+            //タイトルラベルの設定
+            var title = new Sprite(title_sizeX, title_sizeY);
+            title.image = game_.assets['./img/title.png'];
+            title.x = title_posX;
+            title.y = title_posY;
+            title.scale(title_scale, title_scale);
+            //var title = new Label(title_text);
+            //title.textAlign = title_textAlign;
+            //title.color = title_color;
+            //title.width = title_width;
+            //title.x = title_posX;
+            //title.y = title_posY;
+            //title.font = title_font;
+            scene.addChild(title);
+
+            //サブタイトルラベルの設定
+            //var subTitle = new Label(subTitle_text);
+            //subTitle.textAlign = subTitle_textAlign;
+            //subTitle.width = subTitle_width;
+            //subTitle.x = subTitle_posX;
+            //subTitle.y = subTitle_posY;
+            //subTitle.font = subTitle_font;
+            //scene.addChild(subTitle);
+
+
+
+
+
+            //許可番号の設定
+            var licLabel = new Label(licLabel_text);
+            licLabel.textAlign = licLabel_textAlign;
+            licLabel.width = licLabel_width;
+            licLabel.x = licLabel_posX;
+            licLabel.y = licLabel_posY;
+            licLabel.font = licLabel_font;
+            scene.addChild(licLabel);
+
+            //ルール画像の設置
+            var rule = new Sprite(rule_sizeX, rule_sizeY);
+            rule.image = game_.assets['./img/rule.png'];
+            rule.x = rule_posX;
+            rule.y = rule_posY;
+            rule.scale(rule_scale, rule_scale);
+            scene.addChild(rule);
+
+
+
+            //thunderbird.incの設定
+            var creditName = new Label(creditName_text);
+            creditName.textAlign = creditName_textAlign;
+            creditName.width = creditName_width;
+            creditName.x = creditName_posX;
+            creditName.y = creditName_posY;
+            creditName.font = creditName_font;
+            scene.addChild(creditName);
+
+            //お問い合わせの設定
+            var contactLabel = new Label(contactLabel_text);
+            contactLabel.textAlign = contactLabel_textAlign;
+            contactLabel.width = contactLabel_width;
+            contactLabel.x = contactLabel_posX;
+            contactLabel.y = contactLabel_posY;
+            contactLabel.font = contactLabel_font;
+            scene.addChild(contactLabel);
+
+            //お問い合わせボタンがタッチ（クリック）されたときのイベント
+            contactLabel.addEventListener(Event.TOUCH_START, function (e) {
+                window.open('https://www.thunderbird.co.jp/', '_blank');
+            });
+            scene.addEventListener(Event.ENTER_FRAME, function () {
+                var mouseOverFlg = false;
+                mouseOverFlg = mouseOverFlg || checkMouseOver(contactLabel_posY, contactLabel_posX, contactLabel_fontSize, contactLabel_width);
+                if (mouseOverFlg) {
+                    document.body.style.cursor = 'pointer';
+                } else {
+                    document.body.style.cursor = 'default';
+                }
+            });
+            scene.addEventListener(Event.TOUCH_START, function (e) {
+                game_.replaceScene(createGameScene());
+            });
+
+            return scene;
+        };
         /**
         * game Scene
         */
@@ -1182,7 +1285,7 @@ window.onload = function () {
             tips.image = game_.assets['./img/tips' + nowStage + '.png'];
             tips.scale(winWidth_Use / tips_sizeX[nowStage], winWidth_Use / tips_sizeX[nowStage]);
             tips.x = winWidth / 2 - tips_sizeX[nowStage] / 2;
-            tips.y = resultTips_fontSize + resultTips_y + paddingSpace;//outStageHeight + stagePanelHeight * stageHeight + arrowYpadding;
+            tips.y = tips_y - (1 - winWidth_Use / tips_sizeX[nowStage]) * tips_sizeY[nowStage] / 2;//outStageHeight + stagePanelHeight * stageHeight + arrowYpadding;
             //new Label(tips_text);
             //tips.textAlign = tips_textAlign;
             //tips.width = tips_width;
