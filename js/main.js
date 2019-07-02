@@ -94,7 +94,7 @@ var licLabel_fontSize = title_fontSize * 0.3;
 var licLabel_font = licLabel_fontSize + 'px sans-serif';
 var licLabel_width = licLabel_fontSize * licLabel_text.length;
 var licLabel_posX = winWidth / 2 - licLabel_width / 2;
-var licLabel_posY = title_posY + title_sizeY * title_scale + paddingSpace;//subTitle_posY + subTitle_fontSize + paddingSpace;
+var licLabel_posY = title_posY + title_sizeY * title_scale * 1.4 + paddingSpace;//subTitle_posY + subTitle_fontSize + paddingSpace;
 
 
 //thunderbird.incの設定
@@ -147,8 +147,9 @@ var staffLabel_posY = staffLabelRole_posY - staffLabel_fontSize - paddingSpace;
 var startImage_sizeX = 300;
 var startImage_sizeY = 106;
 //画像描画位置
+var startImage_scale = winWidth_Use * 0.8 / startImage_sizeX;
 var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
-var startImage_posY = Math.abs((licLabel_posY + licLabel_fontSize) - (staffLabel_posY)) / 2 + startImage_sizeY;//licLabel_posY + licLabel_fontSize + paddingSpace * 3;
+var startImage_posY = winHeight / 2 - startImage_sizeY * startImage_scale - (1 - startImage_scale) * startImage_sizeY / 2;//licLabel_posY + licLabel_fontSize + paddingSpace * 3;
 
 
 //ルール確認画面
@@ -462,6 +463,7 @@ window.onload = function () {
             startImage.image = game_.assets['./img/start.png'];
             startImage.x = startImage_posX;
             startImage.y = startImage_posY;
+            startImage.scale(startImage_scale, startImage_scale);
             scene.addChild(startImage);
 
             //タイトルラベルの設定
