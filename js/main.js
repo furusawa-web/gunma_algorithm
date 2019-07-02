@@ -200,9 +200,12 @@ var backHomeScene_text = 'ホームへ';
 var backHomeScene_textAlign = 'center';
 var backHomeScene_fontSize = title_fontSize * 0.3;
 var backHomeScene_font = backHomeScene_fontSize + 'px sans-serif';
-var backHomeScene_width = stageRangeWidth / 3;
-var backHomeScene_posX = outStageWidth;
-var backHomeScene_posY = licLabel_posY + backHomeScene_fontSize + paddingSpace;
+var backHomeScene_width = stageRangeWidth / 5;
+var backHomeScene_posX = outStageWidth - stagePanelWidth * 0.5;
+var backHomeScene_posY = licLabel_posY + licLabel_fontSize - stagePanelWidth * 0.5;
+var backHomeScene_sizeX = 123;
+var backHomeScene_sizeY = 143;
+var backHomeScene_scale = backHomeScene_width / backHomeScene_sizeX;
 
 //ステージ選択へボタンの設定
 var backSelectScene_text = 'ステージ選択へ';
@@ -210,8 +213,13 @@ var backSelectScene_textAlign = 'center';
 var backSelectScene_fontSize = backHomeScene_fontSize;
 var backSelectScene_font = backHomeScene_font;
 var backSelectScene_width = backHomeScene_width;
-var backSelectScene_posX = backHomeScene_posX + backHomeScene_width;
+var backSelectScene_posX = backHomeScene_posX + backHomeScene_width * 2;
 var backSelectScene_posY = backHomeScene_posY;
+var backSelectScene_sizeX = 123;
+var backSelectScene_sizeY = 143;
+var backSelectScene_scale = backSelectScene_width / backSelectScene_sizeX;
+
+
 
 //リセットボタンの設定
 var backArrow_text = 'やりなおす';
@@ -219,14 +227,20 @@ var backArrow_textAlign = 'center';
 var backArrow_fontSize = backHomeScene_fontSize;
 var backArrow_font = backHomeScene_font;
 var backArrow_width = backHomeScene_width;
-var backArrow_posX = backSelectScene_posX + backSelectScene_width;
+var backArrow_posX = backSelectScene_posX + backSelectScene_width * 2;
 var backArrow_posY = backHomeScene_posY;
+var backArrow_sizeX = 123;
+var backArrow_sizeY = 143;
+var backArrow_scale = backArrow_width / backArrow_sizeX;
+
+
+
 
 //移動回数表示用ラベルの設定
 var moveCountLabel_fontSize = backHomeScene_fontSize * 1.5;
 var moveCountLabel_font = moveCountLabel_fontSize + 'px sans-serif';
 var moveCountLabel_x = 0;
-var moveCountLabel_y = backHomeScene_posY + backHomeScene_fontSize + paddingSpace;
+var moveCountLabel_y = backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY * 1.2 + paddingSpace;
 var moveCountLabel_width = winWidth;
 var moveCountLabel_textAlign = 'center';
 
@@ -424,7 +438,7 @@ window.onload = function () {
     //fpsは適当な値に設定
     game_.fps = 24;
     //事前読み込み（以下で表示する画像は必ずここに記述）
-    game_.preload('./img/title.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png');
+    game_.preload('./img/title.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png', './img/Home.png', './img/Retry.png', './img/Select.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
@@ -822,15 +836,18 @@ window.onload = function () {
             licLabel.font = licLabel_font;
             scene.addChild(licLabel);
 
+
             //ホームへ戻るの設定
-            var backHomeScene = new Label(backHomeScene_text);
-            backHomeScene.textAlign = backHomeScene_textAlign;
-            backHomeScene.width = backHomeScene_width;
+            var backHomeScene = new Sprite(backHomeScene_sizeX, backHomeScene_sizeY);
+            backHomeScene.image = game_.assets['./img/Home.png'];
+            backHomeScene.scale(backHomeScene_scale, backHomeScene_scale);
+            //var backHomeScene = new Label(backHomeScene_text);
+            //backHomeScene.textAlign = backHomeScene_textAlign;
+            //backHomeScene.width = backHomeScene_width;
             backHomeScene.x = backHomeScene_posX;
             backHomeScene.y = backHomeScene_posY;
-            backHomeScene.font = backHomeScene_font;
+            //backHomeScene.font = backHomeScene_font;
             scene.addChild(backHomeScene);
-            //スタートイメージがタッチ（クリック）されたときのイベント
             backHomeScene.addEventListener(Event.TOUCH_START, function (e) {
                 //シーン遷移
                 game_.replaceScene(createStartScene());
@@ -838,14 +855,16 @@ window.onload = function () {
 
 
             //ステージ選択へ戻るの設定
-            var backSelectScene = new Label(backSelectScene_text);
-            backSelectScene.textAlign = backSelectScene_textAlign;
-            backSelectScene.width = backSelectScene_width;
+            var backSelectScene = new Sprite(backSelectScene_sizeX, backSelectScene_sizeY);
+            backSelectScene.image = game_.assets['./img/Select.png'];
+            backSelectScene.scale(backSelectScene_scale, backSelectScene_scale);
+            //var backSelectScene = new Label(backSelectScene_text);
+            //backSelectScene.textAlign = backSelectScene_textAlign;
+            //backSelectScene.width = backSelectScene_width;
             backSelectScene.x = backSelectScene_posX;
             backSelectScene.y = backSelectScene_posY;
-            backSelectScene.font = backSelectScene_font;
+            //backSelectScene.font = backSelectScene_font;
             scene.addChild(backSelectScene);
-            //スタートイメージがタッチ（クリック）されたときのイベント
             backSelectScene.addEventListener(Event.TOUCH_START, function (e) {
                 //シーン遷移
                 game_.replaceScene(createSelectScene());
@@ -858,14 +877,17 @@ window.onload = function () {
             //backArrow.x = backArrow_x;
             //backArrow.y = backArrow_y;
             //label版
-            var backArrow = new Label(backArrow_text);
-            backArrow.textAlign = backArrow_textAlign;
-            backArrow.width = backArrow_width;
+
+            var backArrow = new Sprite(backArrow_sizeX, backArrow_sizeY);
+            backArrow.image = game_.assets['./img/Retry.png'];
+            backArrow.scale(backArrow_scale, backArrow_scale);
+            //var backArrow = new Label(backArrow_text);
+            //backArrow.textAlign = backArrow_textAlign;
+            //backArrow.width = backArrow_width;
             backArrow.x = backArrow_posX;
             backArrow.y = backArrow_posY;
-            backArrow.font = backArrow_font;
+            //backArrow.font = backArrow_font;
             scene.addChild(backArrow);
-
             backArrow.addEventListener('touchstart', function () {
                 if (!goFlg) {
                     //元ステージ情報を読み込み
