@@ -36,7 +36,7 @@ var winHeight = window.innerHeight;
 
 //横長画面への対応
 var winWidth_Use = winWidth;
-if (winWidth > winHeight) winWidth_Use = winHeight * 3 / 5;
+if (winWidth > winHeight * 3 / 5) winWidth_Use = winHeight * 3 / 5;
 
 
 //ステージ情報-------------------------------
