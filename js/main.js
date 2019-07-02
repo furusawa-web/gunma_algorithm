@@ -289,7 +289,7 @@ var resultTips_textAlign = 'center';
 var resultTips_color = '#fff';
 var resultTips_width = winWidth;
 var resultTips_x = 0;
-var resultTips_y = resultLabel_fontSize + resultLabel_y + paddingSpace;
+var resultTips_y = resultLabel_sizeY * resultLabel_scale + resultLabel_y + paddingSpace;
 var resultTips_fontSize = title_fontSize * 0.5;
 var resultTips_font = resultTips_fontSize + 'px sans-serif';
 
