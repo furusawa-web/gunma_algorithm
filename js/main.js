@@ -240,7 +240,7 @@ var backArrow_scale = backArrow_width / backArrow_sizeX;
 var moveCountLabel_fontSize = backHomeScene_fontSize * 1.5;
 var moveCountLabel_font = moveCountLabel_fontSize + 'px sans-serif';
 var moveCountLabel_x = 0;
-var moveCountLabel_y = backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY * 1.2 + paddingSpace;
+var moveCountLabel_y = backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY + paddingSpace;
 var moveCountLabel_width = winWidth;
 var moveCountLabel_textAlign = 'center';
 
@@ -262,7 +262,7 @@ var gameoverScene_backgroundColor = '#fcc8f0';
 var gameoverImage_width = 300;
 var gameoverImage_height = 100;
 var gameoverImage_x = winWidth / 2 - gameoverImage_width / 2;
-var gameoverImage_y = moveCountLabel_y + paddingSpace * 1.5;
+var gameoverImage_y = licLabel_posY + licLabel_fontSize + paddingSpace * 2;
 
 //結果基準配列
 var resultLabel_index = [20, 10, 0];
@@ -308,7 +308,7 @@ var tips_fontSize = title_fontSize * 0.5;
 var tips_font = tips_fontSize + 'px sans-serif';
 
 
-var backHomeScene_posY_under = contactLabel_posY - (backHomeScene_fontSize + paddingSpace);
+var backHomeScene_posY_under = contactLabel_posY - (backHomeScene_sizeY * backHomeScene_scale + paddingSpace);
 var backSelectScene_posY_under = backHomeScene_posY_under;
 //-----------------------
 
@@ -1120,34 +1120,66 @@ window.onload = function () {
             resultTips.font = resultTips_font;
             scene.addChild(resultTips);
 
-
             //ホームへ戻るの設定
-            var backHomeScene = new Label(backHomeScene_text);
-            backHomeScene.textAlign = backHomeScene_textAlign;
-            backHomeScene.width = backHomeScene_width;
+            var backHomeScene = new Sprite(backHomeScene_sizeX, backHomeScene_sizeY);
+            backHomeScene.image = game_.assets['./img/Home.png'];
+            backHomeScene.scale(backHomeScene_scale, backHomeScene_scale);
+            //var backHomeScene = new Label(backHomeScene_text);
+            //backHomeScene.textAlign = backHomeScene_textAlign;
+            //backHomeScene.width = backHomeScene_width;
             backHomeScene.x = backHomeScene_posX;
             backHomeScene.y = backHomeScene_posY_under;
-            backHomeScene.font = backHomeScene_font;
+            //backHomeScene.font = backHomeScene_font;
             scene.addChild(backHomeScene);
-            //スタートイメージがタッチ（クリック）されたときのイベント
             backHomeScene.addEventListener(Event.TOUCH_START, function (e) {
                 //シーン遷移
                 game_.replaceScene(createStartScene());
             });
 
+
             //ステージ選択へ戻るの設定
-            var backSelectScene = new Label(backSelectScene_text);
-            backSelectScene.textAlign = backSelectScene_textAlign;
-            backSelectScene.width = backSelectScene_width;
-            backSelectScene.x = backSelectScene_posX + backSelectScene_width;
+            var backSelectScene = new Sprite(backSelectScene_sizeX, backSelectScene_sizeY);
+            backSelectScene.image = game_.assets['./img/Select.png'];
+            backSelectScene.scale(backSelectScene_scale, backSelectScene_scale);
+            //var backSelectScene = new Label(backSelectScene_text);
+            //backSelectScene.textAlign = backSelectScene_textAlign;
+            //backSelectScene.width = backSelectScene_width;
+            backSelectScene.x = backArrow_posX;
             backSelectScene.y = backSelectScene_posY_under;
-            backSelectScene.font = backSelectScene_font;
+            //backSelectScene.font = backSelectScene_font;
             scene.addChild(backSelectScene);
-            //スタートイメージがタッチ（クリック）されたときのイベント
             backSelectScene.addEventListener(Event.TOUCH_START, function (e) {
                 //シーン遷移
                 game_.replaceScene(createSelectScene());
             });
+
+            //ホームへ戻るの設定
+            //var backHomeScene = new Label(backHomeScene_text);
+            //backHomeScene.textAlign = backHomeScene_textAlign;
+            //backHomeScene.width = backHomeScene_width;
+            //backHomeScene.x = backHomeScene_posX;
+            //backHomeScene.y = backHomeScene_posY_under;
+            //backHomeScene.font = backHomeScene_font;
+            //scene.addChild(backHomeScene);
+            //スタートイメージがタッチ（クリック）されたときのイベント
+            //backHomeScene.addEventListener(Event.TOUCH_START, function (e) {
+            //シーン遷移
+            //game_.replaceScene(createStartScene());
+            //});
+
+            //ステージ選択へ戻るの設定
+            //var backSelectScene = new Label(backSelectScene_text);
+            //backSelectScene.textAlign = backSelectScene_textAlign;
+            //backSelectScene.width = backSelectScene_width;
+            //backSelectScene.x = backSelectScene_posX + backSelectScene_width;
+            //backSelectScene.y = backSelectScene_posY_under;
+            //backSelectScene.font = backSelectScene_font;
+            //scene.addChild(backSelectScene);
+            //スタートイメージがタッチ（クリック）されたときのイベント
+            //backSelectScene.addEventListener(Event.TOUCH_START, function (e) {
+            //シーン遷移
+            //game_.replaceScene(createSelectScene());
+            //});
 
             //tipsの設定
             var tips = new Sprite(tips_sizeX[nowStage], tips_sizeY[nowStage]);
