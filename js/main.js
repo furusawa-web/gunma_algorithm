@@ -233,9 +233,6 @@ var backArrow_sizeX = 48;
 var backArrow_sizeY = 56;
 var backArrow_scale = backArrow_width / backArrow_sizeX;
 
-
-
-
 //移動回数表示用ラベルの設定
 var moveCountLabel_fontSize = backHomeScene_fontSize * 1.5;
 var moveCountLabel_font = moveCountLabel_fontSize + 'px sans-serif';
@@ -269,7 +266,7 @@ var resultLabel_index = [20, 10, 0];
 //結果表示ラベルの設定
 var resultLabel_sizeX = 348;
 var resultLabel_sizeY = 96;
-var resultLabel_scale = stageRangeWidth / resultLabel_sizeX;
+var resultLabel_scale = stageRangeWidth * 0.8 / resultLabel_sizeX;
 var resultLabel_text = ["★☆☆", "★★☆", "★★★"];
 var resultLabel_textAlign = 'center';
 var resultLabel_color = '#ffd700';
@@ -289,7 +286,7 @@ var resultTips_textAlign = 'center';
 var resultTips_color = '#fff';
 var resultTips_width = winWidth;
 var resultTips_x = 0;
-var resultTips_y = resultLabel_sizeY * resultLabel_scale + resultLabel_y + paddingSpace;
+var resultTips_y = resultLabel_sizeY * resultLabel_scale + resultLabel_y + paddingSpace * 1.5;
 var resultTips_fontSize = title_fontSize * 0.5;
 var resultTips_font = resultTips_fontSize + 'px sans-serif';
 
@@ -306,7 +303,6 @@ var tips_x = (winWidth - tips_width) / 2;
 var tips_y = resultTips_fontSize + resultTips_y + paddingSpace * 2;
 var tips_fontSize = title_fontSize * 0.5;
 var tips_font = tips_fontSize + 'px sans-serif';
-
 
 var backHomeScene_posY_under = contactLabel_posY - (backHomeScene_sizeY * backHomeScene_scale + paddingSpace);
 var backSelectScene_posY_under = backHomeScene_posY_under;
@@ -1110,7 +1106,7 @@ window.onload = function () {
             //label.font = resultLabel_font;
             scene.addChild(label);
 
-
+            resultIndex--;
             var resultTips = new Label(resultTips_text[resultIndex]);
             resultTips.textAlign = resultTips_textAlign;
             resultTips.color = resultTips_color;
