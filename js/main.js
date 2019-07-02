@@ -201,10 +201,10 @@ var backHomeScene_textAlign = 'center';
 var backHomeScene_fontSize = title_fontSize * 0.3;
 var backHomeScene_font = backHomeScene_fontSize + 'px sans-serif';
 var backHomeScene_width = stageRangeWidth / 5;
-var backHomeScene_posX = outStageWidth - stagePanelWidth * 0.5;
-var backHomeScene_posY = licLabel_posY + licLabel_fontSize - stagePanelWidth * 0.5;
-var backHomeScene_sizeX = 123;
-var backHomeScene_sizeY = 143;
+var backHomeScene_posX = outStageWidth;
+var backHomeScene_posY = licLabel_posY + licLabel_fontSize + paddingSpace;
+var backHomeScene_sizeX = 48;
+var backHomeScene_sizeY = 56;
 var backHomeScene_scale = backHomeScene_width / backHomeScene_sizeX;
 
 //ステージ選択へボタンの設定
@@ -215,8 +215,8 @@ var backSelectScene_font = backHomeScene_font;
 var backSelectScene_width = backHomeScene_width;
 var backSelectScene_posX = backHomeScene_posX + backHomeScene_width * 2;
 var backSelectScene_posY = backHomeScene_posY;
-var backSelectScene_sizeX = 123;
-var backSelectScene_sizeY = 143;
+var backSelectScene_sizeX = 48;
+var backSelectScene_sizeY = 56;
 var backSelectScene_scale = backSelectScene_width / backSelectScene_sizeX;
 
 
@@ -229,8 +229,8 @@ var backArrow_font = backHomeScene_font;
 var backArrow_width = backHomeScene_width;
 var backArrow_posX = backSelectScene_posX + backSelectScene_width * 2;
 var backArrow_posY = backHomeScene_posY;
-var backArrow_sizeX = 123;
-var backArrow_sizeY = 143;
+var backArrow_sizeX = 48;
+var backArrow_sizeY = 56;
 var backArrow_scale = backArrow_width / backArrow_sizeX;
 
 
