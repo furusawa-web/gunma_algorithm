@@ -195,8 +195,8 @@ var selectStage_width = winWidth;
 //ゲームシーンの設定
 var gameScene_BackgroundColor = '#fcc800';//'#fcc8f0';
 
-//ステージを描画する範囲(以下はステージ描画用領域として、全体の7割のサイズの正方形で確保)
-var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.7;
+//ステージを描画する範囲(以下はステージ描画用領域として、全体の6.5割のサイズの正方形で確保)
+var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.65;
 var stageRangeHeight = stageRangeWidth;
 
 //パネルの画像サイズ
@@ -260,7 +260,7 @@ var stageInfo_sizeX = 359;
 var stageInfo_sizeY = 80;
 var stageInfo_scale = winWidth_Use * 0.5 / stageInfo_sizeX;
 var stageInfo_posX = winWidth / 2 - stageInfo_sizeX / 2;
-var stageInfo_posY = backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY + paddingSpace;
+var stageInfo_posY = (backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY + paddingSpace) + (1 - backHomeScene_scale) * backHomeScene_sizeY / 2 - (1 - stageInfo_scale) * stageInfo_sizeY / 2;
 
 //移動回数表示用ラベルの設定
 var moveCountLabel_fontSize = backHomeScene_fontSize * 1.5;
