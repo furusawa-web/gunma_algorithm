@@ -147,9 +147,18 @@ var staffLabel_posY = staffLabelRole_posY - staffLabel_fontSize - paddingSpace;
 var startImage_sizeX = 300;
 var startImage_sizeY = 106;
 //画像描画位置
-var startImage_scale = winWidth_Use * 0.8 / startImage_sizeX;
+var startImage_scale = winWidth_Use * 0.5 / startImage_sizeX;
 var startImage_posX = winWidth / 2 - startImage_sizeX / 2;
 var startImage_posY = winHeight / 2 - startImage_sizeY * startImage_scale - (1 - startImage_scale) * startImage_sizeY / 2;//licLabel_posY + licLabel_fontSize + paddingSpace * 3;
+
+var licLabel_title_posY = startImage_posY - licLabel_fontSize - paddingSpace;
+
+//タイトル画面のおおきいタイトルの設定
+var bigTitle_sizeX = 544;
+var bigTitle_sizeY = 213;
+var bigTitle_scale = winWidth_Use * 0.8 / bigTitle_sizeX;
+var bigTitle_posX = winWidth / 2 - bigTitle_sizeX / 2;
+var bigTitle_posY = licLabel_title_posY - paddingSpace - bigTitle_sizeY * bigTitle_scale - (1 - bigTitle_scale) * bigTitle_sizeY / 2;
 
 
 //ルール確認画面
@@ -184,7 +193,7 @@ var selectStage_width = winWidth;
 
 
 //ゲームシーンの設定
-var gameScene_BackgroundColor = '#fcc8f0';
+var gameScene_BackgroundColor = '#fcc800';//'#fcc8f0';
 
 //ステージを描画する範囲(以下はステージ描画用領域として、全体の7割のサイズの正方形で確保)
 var stageRangeWidth = Math.min(winWidth_Use, winHeight) * 0.7;
@@ -245,11 +254,19 @@ var backArrow_sizeX = 48;
 var backArrow_sizeY = 56;
 var backArrow_scale = backArrow_width / backArrow_sizeX;
 
+
+//現在ステージ情報表示用イメージの設定
+var stageInfo_sizeX = 359;
+var stageInfo_sizeY = 80;
+var stageInfo_scale = winWidth_Use * 0.5 / stageInfo_sizeX;
+var stageInfo_posX = winWidth / 2 - stageInfo_sizeX / 2;
+var stageInfo_posY = backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY + paddingSpace;
+
 //移動回数表示用ラベルの設定
 var moveCountLabel_fontSize = backHomeScene_fontSize * 1.5;
 var moveCountLabel_font = moveCountLabel_fontSize + 'px sans-serif';
 var moveCountLabel_x = 0;
-var moveCountLabel_y = backHomeScene_posY + backHomeScene_scale * backHomeScene_sizeY + paddingSpace;
+var moveCountLabel_y = stageInfo_posY + stageInfo_scale * stageInfo_sizeY + paddingSpace;
 var moveCountLabel_width = winWidth;
 var moveCountLabel_textAlign = 'center';
 
@@ -265,7 +282,7 @@ var comArrow_y = outStageHeight;
 var comArrow_width = comArrow_fontSize;
 
 //ゲームオーバーシーンの設定
-var gameoverScene_backgroundColor = '#fcc8f0';
+var gameoverScene_backgroundColor = '#fcc800';//'#fcc8f0';
 
 //クリア画像の設定
 var gameoverImage_width = 300;
@@ -446,7 +463,7 @@ window.onload = function () {
     //fpsは適当な値に設定
     game_.fps = 24;
     //事前読み込み（以下で表示する画像は必ずここに記述）
-    game_.preload('./img/title.png', './img/rule.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png', './img/Home.png', './img/Retry.png', './img/Select.png');
+    game_.preload('./img/title.png', './img/bigTitle.png', './img/rule.png', './img/arrow.png', './img/backArrow.png', './img/stagePanel0.png', './img/stagePanel1.png', './img/stagePanel2.png', './img/stagePanel3.png', './img/stagePanel4.png', './img/stagePanel5.png', './img/stagePanel6.png', './img/gunma.png', './img/start.png', './img/clear.png', './img/go.png', './img/selectStage0.png', './img/selectStage1.png', './img/selectStage2.png', './img/selectStage3.png', './img/selectStage4.png', './img/selectStage5.png', './img/selectStage6.png', './img/star1.png', './img/star2.png', './img/star3.png', './img/tips0.png', './img/tips1.png', './img/tips2.png', './img/tips3.png', './img/tips4.png', './img/tips5.png', './img/tips6.png', './img/Home.png', './img/Retry.png', './img/Select.png');
 
     //読み込み終了次第ゲーム用処理
     game_.onload = function () {
@@ -467,13 +484,27 @@ window.onload = function () {
             scene.addChild(startImage);
 
             //タイトルラベルの設定
+            var bigTitle = new Sprite(bigTitle_sizeX, bigTitle_sizeY);
+            bigTitle.image = game_.assets['./img/bigTitle.png'];
+            bigTitle.x = bigTitle_posX;
+            bigTitle.y = bigTitle_posY;
+            bigTitle.scale(bigTitle_scale, bigTitle_scale);
+            scene.addChild(bigTitle);
 
+            //許可番号の設定
+            var licLabel = new Label(licLabel_text);
+            licLabel.textAlign = licLabel_textAlign;
+            licLabel.width = licLabel_width;
+            licLabel.x = licLabel_posX;
+            licLabel.y = licLabel_title_posY;
+            licLabel.font = licLabel_font;
+            scene.addChild(licLabel);
 
-            var title = new Sprite(title_sizeX, title_sizeY);
-            title.image = game_.assets['./img/title.png'];
-            title.x = title_posX;
-            title.y = title_posY;
-            title.scale(title_scale, title_scale);
+            //var title = new Sprite(title_sizeX, title_sizeY);
+            //title.image = game_.assets['./img/title.png'];
+            //title.x = title_posX;
+            //title.y = title_posY;
+            //title.scale(title_scale, title_scale);
             //var title = new Label(title_text);
             //title.textAlign = title_textAlign;
             //title.color = title_color;
@@ -481,7 +512,7 @@ window.onload = function () {
             //title.x = title_posX;
             //title.y = title_posY;
             //title.font = title_font;
-            scene.addChild(title);
+            //scene.addChild(title);
 
             //サブタイトルラベルの設定
             //var subTitle = new Label(subTitle_text);
@@ -492,14 +523,6 @@ window.onload = function () {
             //subTitle.font = subTitle_font;
             //scene.addChild(subTitle);
 
-            //許可番号の設定
-            var licLabel = new Label(licLabel_text);
-            licLabel.textAlign = licLabel_textAlign;
-            licLabel.width = licLabel_width;
-            licLabel.x = licLabel_posX;
-            licLabel.y = licLabel_posY;
-            licLabel.font = licLabel_font;
-            scene.addChild(licLabel);
 
 
 
@@ -971,6 +994,17 @@ window.onload = function () {
                 game_.replaceScene(createSelectScene());
             });
 
+
+
+            var stageInfo = new Sprite(stageInfo_sizeX, stageInfo_sizeY);
+            stageInfo.image = game_.assets['./img/selectStage' + nowStage + '.png'];
+            stageInfo.x = stageInfo_posX;
+            stageInfo.y = stageInfo_posY;
+            stageInfo.scale(stageInfo_scale, stageInfo_scale);
+            scene.addChild(stageInfo);
+
+
+
             //リセットボタンの設定
             //image版
             //var backArrow = new Sprite(panelImageWidth, panelImageHeight);
@@ -993,7 +1027,7 @@ window.onload = function () {
                 if (!goFlg) {
                     //元ステージ情報を読み込み
                     stageAry = JSON.parse(JSON.stringify(orgStage));
-
+                    comArrow.text = "";
                     //ステージ情報を画面描画に対応
                     for (var indexY = 0; indexY < stageHeight; indexY++) {
                         for (var indexX = 0; indexX < stageWidth; indexX++) {
